@@ -4,8 +4,6 @@ hpc warewul4 automatic configuration
 
 # Goals
 
-This is an **EXPERIMENTATION** project for [SUSE ALP MICRO](https://documentation.suse.com/alp/all/)
-
 Prepare everything to be able to deploy Compute nodes with ww4.
 
 * **dnsmask**: dns ready
