@@ -20,7 +20,8 @@ Interactive mode for autoww4
 import os
 from cmd import Cmd
 import autoww4.util as util
-import autoww4.configuration as configuration
+#import autoww4.configuration as configuration
+import autoww4.dhcpd as dhcpd
 
 ######
 # Interactive command
@@ -42,10 +43,22 @@ class Interactive(Cmd):
         self.prompt = self.promptline +'> '
         self.prompt = 'autoww4 > '
         lines = []
-        lines.append("\n"+util.esc('green') +" autoww4 "+util.esc('reset')+ "Interactive Terminal!\n\n")
+        lines.append("\n"+util.esc('green') +" autoww4 "+util.esc('reset'))
+        lines.append("Interactive Terminal!\n\n")
 
         self.intro = ''.join(lines)
         self.prompt = self.promptline+'\n'+'> '
+
+    def do_interface(self, args):
+        """
+        Define the dhcpd interface
+        """
+        list_interface = util.get_network_interface()
+        if args not in list_interface:
+            util.print_error("Please select a correct interface name:")
+            print(str(list_interface))
+        else:
+            dhcpd.dhcpd_interface(args)
 
     def do_quit(self, _args):
         """

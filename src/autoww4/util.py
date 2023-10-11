@@ -19,6 +19,7 @@ Util
 
 import subprocess
 import os
+import psutil
 import shutil
 import yaml
 
@@ -48,6 +49,37 @@ def cmd_exists(cmd):
     check a command exist
     """
     return shutil.which(cmd) is not None
+
+def get_network_interface():
+    """
+    get the list of available interface on the system
+    """
+    interfaces = psutil.net_if_addrs()
+    interface_list = []
+    for interface_name, addresses in interfaces.items():
+        interface_list.append(interface_name)
+    return interface_list
+
+def change_var(conffile, var_to_change, var_value):
+    """
+    change var in a config file
+    """
+    config_file_path = conffile
+    if os.path.isfile(config_file_path):
+        with open(config_file_path, 'r') as file:
+            lines = file.readlines()
+
+        for data, line in enumerate(lines):
+            if line.startswith(var_to_change + '='):
+                lines[data] = f'{var_to_change}={var_value}\n'
+                break
+
+        with open(config_file_path, 'w') as file:
+            file.writelines(lines)
+
+        print(f'{var_to_change} set to {var_value}')
+    else:
+        util.print_error(config_file_path+" Doesnt exist!")
 
 COLORS = {
     'reset': '\033[0m',
