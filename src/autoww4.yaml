@@ -1,0 +1,53 @@
+# WARNING: INCORRET PARAMATERS WILL LEAD TO BAD VM CONFIGURATION
+# Dont change the section name
+# This will overwrite Scenario settings...
+
+config:
+  - path: /etc/virt-scenario
+#  - vm-config-store: /etc/virt-scenario/vmconfig
+  - vm-config-store: ~/.local/virt-scenario/vmconfig
+
+#hypervisors:
+#  - hvconf: virthosts.yaml
+
+emulator:
+  - emulator: /usr/bin/qemu-system-x86_64
+  - fw_meta: /usr/share/qemu/firmware/
+
+#input:
+# this value overwrite scenario, and in some case
+# create two inputs devices for same device which can cause
+# issue (ie: one ps2 + one virtio keyboard)
+#  - keyboard: virtio
+#  - mouse: virtio
+
+architecture:
+  - arch: x86_64
+
+STORAGE_DATA:
+# some options are only available with qcow2 format and
+# will be ignored in case of any other image format
+  - disk_type: file
+# disk cache: writeback, writethrough, none, unsafe, directsync
+#  - disk_cache: none
+  - disk_target: vda
+  - disk_bus: virtio
+  - path: /var/lib/libvirt/images
+# format: qcow2, raw
+#  - format: qcow2
+# host side: qemu-img creation options (-o), qemu-img --help
+  - unit: G
+  - capacity: 8
+  - cluster_size: 1024
+#  - lazy_refcounts: on
+# preallocation: off, metadata (qcow2), falloc, full
+#  - preallocation: metadata
+  - compression_type: zlib
+# encryption: on, off
+#  - encryption: off
+
+host_filesystem:
+  - fmode: 644
+  - dmode: 755
+  - source_dir: /tmp
+  - target_dir: /tmp/host
