@@ -33,15 +33,17 @@ python3 -m autoww4
 
 [tftp.py](src/autoww4/tftp.py)
 ```
-tftp_directory(directory):
-tftp_option(options):
-tftp_enable():
-tftp_start():```
+tftp_directory(directory)
+tftp_option(options)
+tftp_enable()
+tftp_start()
+```
 
 [dhcpd.py](src/autoww4/dhcpd.py)
 ```
-dhcpd_interface(interface):
-set_authoritative(value):```
+dhcpd_interface(interface)
+set_authoritative(value)
+```
 
 # Code
 
