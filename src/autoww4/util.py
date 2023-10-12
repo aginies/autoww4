@@ -19,10 +19,11 @@ Util
 
 import subprocess
 import os
-import psutil
 import shutil
+import psutil
 import yaml
 import autoww4.containers as containers
+import autoww4.util as util
 
 def system_command(cmd):
     """
@@ -36,14 +37,17 @@ def system_command(cmd):
     return out, errs
 
 def run_command_with_except(cmd):
+    """
+    run command with except
+    """
     try:
         result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
         stdout = result.stdout
         stderr = result.stderr
         return stdout, stderr
-    except subprocess.CalledProcessError as e:
-        print(f"Command:\n'{cmd}'\n failed with exit code {e.returncode}:")
-        print(e.stderr)
+    except subprocess.CalledProcessError as err:
+        print(f"Command:\n'{cmd}'\n failed with exit code {err.returncode}:")
+        print(err.stderr)
 
 def systemd_start(service):
     """
@@ -69,7 +73,8 @@ def get_network_interface():
     """
     interfaces = psutil.net_if_addrs()
     interface_list = []
-    for interface_name, addresses in interfaces.items():
+    # _ = addresses
+    for interface_name, _ in interfaces.items():
         interface_list.append(interface_name)
     return interface_list
 
