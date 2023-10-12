@@ -7,7 +7,7 @@ Automation of warewulf4 configuration and other services on an operating system.
 Prepare everything to be able to deploy Compute nodes with ww4.
 
 * **dnsmask**: dns ready
-* **tftp**: get it ready
+ **tftp**: get it ready
 * **ww4**:
     * general configure
     * nodes
@@ -32,14 +32,16 @@ python3 -m autoww4
 # Functions
 
 [tftp.py](src/autoww4/tftp.py)
+```
 tftp_directory(directory):
 tftp_option(options):
 tftp_enable():
-tftp_start():
+tftp_start():```
 
 [dhcpd.py](src/autoww4/dhcpd.py)
+```
 dhcpd_interface(interface):
-set_authoritative(value):
+set_authoritative(value):```
 
 # Code
 
