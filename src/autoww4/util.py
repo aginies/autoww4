@@ -55,6 +55,12 @@ def systemd_start(service):
     """
     run_command_with_except("systemctl start "+service)
 
+def systemd_restart(service):
+    """
+    restart the service
+    """
+    run_command_with_except("systemctl restart "+service)
+
 def systemd_enable(service):
     """
     enable the service
