@@ -45,6 +45,9 @@ dhcpd_interface(interface)
 set_authoritative(value)
 ```
 
+[containers.py](src/autoww4/containers.py)
+This file contains the base_url and list of product per familly (SUSE, openSUSE, ubuntu...)
+
 # Code
 
 [Source](https://github.com/aginies/autoww4)
