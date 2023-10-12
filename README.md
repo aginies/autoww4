@@ -1,6 +1,6 @@
 # Name
 
-hpc warewul4 automatic configuration
+Automation of warewulf4 configuration and other services on an operating system.
 
 # Goals
 
@@ -14,7 +14,6 @@ Prepare everything to be able to deploy Compute nodes with ww4.
     * get container
     * prepare container (ssh key, munge key, slurm, etc...)
 * **firewalld**: permit dns and dhcp request
-  
 
 # User Settings
 
