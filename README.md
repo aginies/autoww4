@@ -26,11 +26,27 @@ Example:
 
 # Usage
 
+```
+python3 -m autoww4
+```
+
+# Functions
+
+[tftp.py](src/autoww4/tftp.py)
+tftp_directory(directory):
+tftp_option(options):
+tftp_enable():
+tftp_start():
+
+[dhcpd.py](src/autoww4/dhcpd.py)
+dhcpd_interface(interface):
+set_authoritative(value):
+
 # Code
 
-[Source](https://github.com/aginies/hpc)
+[Source](https://github.com/aginies/autoww4)
 
-[Issues](https://github.com/aginies/hpc/issues)
+[Issues](https://github.com/aginies/autoww4/issues)
 
 # Authors
 

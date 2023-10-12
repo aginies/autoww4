@@ -44,6 +44,18 @@ def run_command_with_except(cmd):
         print(f"Command:\n'{cmd}'\n failed with exit code {e.returncode}:")
         print(e.stderr)
 
+def systemd_start(service):
+    """
+    Start the service
+    """
+    run_command_with_except("systemctl start "+service)
+
+def systemd_enable(service):
+    """
+    enable the service
+    """
+    system_command("systemctl enable "+ service)
+
 def cmd_exists(cmd):
     """
     check a command exist
