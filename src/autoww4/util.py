@@ -22,6 +22,7 @@ import os
 import psutil
 import shutil
 import yaml
+import autoww4.containers as containers
 
 def system_command(cmd):
     """
@@ -71,6 +72,17 @@ def get_network_interface():
     for interface_name, addresses in interfaces.items():
         interface_list.append(interface_name)
     return interface_list
+
+def list_containers(familly):
+    """
+    list all containers available
+    """
+    if familly == "opensuse":
+        for plist in containers.opensuse_list:
+            print(containers.opensuse_base_url+plist+"/containers/kernel:latest")
+    elif familly == "ubuntu":
+        for plist in containers.ubuntu_list:
+            print(containers.ubuntu_base_url+plist+"/containers/kernel:latest")
 
 def change_var(conffile, var_to_change, var_value):
     """

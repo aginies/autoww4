@@ -22,6 +22,7 @@ from cmd import Cmd
 import autoww4.util as util
 #import autoww4.configuration as configuration
 import autoww4.dhcpd as dhcpd
+import autoww4.containers as containers
 
 ######
 # Interactive command
@@ -59,6 +60,38 @@ class Interactive(Cmd):
             print(str(list_interface))
         else:
             dhcpd.dhcpd_interface(args)
+
+    def complete_do_interface(self, text, _line, _begidx, _endidx):
+        """
+        auto completion interface
+        """
+        list_interface = util.get_network_interface()
+        if not text:
+            completions = list_interface[:]
+        else:
+            completions = [f for f in list_interface if f.startswith(text)]
+        return completions
+
+    def do_list_containers(self, args):
+        """
+        list all containers available
+        """
+        if args not in containers.list_familly:
+            util.print_error("Please select a correct familly:")
+            print(str(containers.list_familly))
+        else:
+            list_containers = util.list_containers(args)
+
+    def complete_list_containers(self, text, _line, _begidx, _endidx):
+        """
+        auto complete familly for containers
+        """
+        list_f = containers.list_familly
+        if not text:
+            completions = list_f[:]
+        else:
+            completions = [f for f in list_f if f.startswith(text)]
+        return completions
 
     def do_quit(self, _args):
         """
