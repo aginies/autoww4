@@ -36,46 +36,91 @@ python3 -m autoww4
 
 # Functions
 
-[tftp.py](src/autoww4/tftp.py)
+[auto.py](src/autoww4/auto.py)
 ```
-tftp_directory(directory)
-tftp_option(options)
-tftp_enable()
-tftp_start()
+def doall():
+```
+[cmd.py](src/autoww4/cmd.py)
+```
+```
+[configuration.py](src/autoww4/configuration.py)
+```
+def find_file_dir(name, what):
+def find_conffile():
+def check_conffile(conf):
 ```
 
 [dhcpd.py](src/autoww4/dhcpd.py)
 ```
-dhcpd_interface(interface)
-set_authoritative(value)
+def dhcpd_interface(interface):
+def set_authoritative(value):
 ```
-
 [dnsmasq.py](src/autoww4/dnsmasq.py)
 ```
-restart_dnsmask()
-start_dnsmask()
-enable_dnsmask()
-dnsmasq_conf(config)
-dnsmasq_host_conf(config)
-dnsmasq_resolv_conf(config)
-dnsmasq_test()
+def restart_dnsmasq():
+def start_dnsmasq():
+def enable_dnsmasq():
+def dnsmasq_config(config):
+def dnsmasq_host_conf(config):
+def dnsmasq_resolv_conf(config):
+def dnsmasq_test():
 ```
-
-[ww4.py](src/autoww4/ww4.py)
+[__init__.py](src/autoww4/__init__.py)
 ```
-ww4_start()
-ww4_restart()
-ww4_enable()
-import_container(container)
-ww4_nodes_conf(config)
-ww4_warewulf_conf(config)
-prepare_container(container)
-container_set_default(container)
 ```
-
+[__main__.py](src/autoww4/__main__.py)
+```
+```
+[main.py](src/autoww4/main.py)
+```
+def main():
+```
+[tftp.py](src/autoww4/tftp.py)
+```
+def tftp_directory(directory):
+def tftp_option(options):
+def tftp_enable():
+def tftp_start():
+def tftp_restart():
+```
 [util.py](src/autoww4/util.py)
 ```
-Various utils functions
+def run_command(cmd):
+def run_command_with_except(cmd):
+def systemd_start(service):
+def systemd_restart(service):
+def systemd_enable(service):
+def cmd_exists(cmd):
+def get_network_interface():
+def list_containers_registry(familly):
+def change_var(conffile, var_to_change, var_value):
+def esc(color):
+def print_error(text):
+def print_warning(text):
+def print_ok(text):
+def print_info(text):
+def print_summary(text):
+def print_title(text):
+def print_summary_ok(text):
+def print_command(text):
+def print_data(data, value):
+def validate_yaml_file(file_path):
+def backup_file(file):
+def check_iam_root():
+def find_ext_file(ext):
+```
+[ww4.py](src/autoww4/ww4.py)
+```
+def ww4_start():
+def ww4_restart():
+def ww4_enable():
+def import_container(container):
+def ww4_nodes_conf(config):
+def ww4_warewulf_conf(config):
+def add_node(node, ipaddr):
+def containers_available():
+def prepare_container(container):
+def container_set_default(container, node):
 ```
 
 [containers.py](src/autoww4/containers.py)
