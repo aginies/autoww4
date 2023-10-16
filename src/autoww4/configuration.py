@@ -32,7 +32,7 @@ dnsmasq_config_file = "/etc/dnsmasq.conf"
 ww4_config_file = "/etc/warewulf/warewulf.conf"
 tftp_config_file = "/etc/sysconfig/tftp"
 dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
-dhcpd_config_file = '/etc/dhcp/dhcpd.conf'
+dhcpd_config_file = '/etc/dhcpd.conf'
 
 conffile_name = 'autoww4.yaml'
 
