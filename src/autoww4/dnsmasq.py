@@ -62,4 +62,4 @@ def dnsmasq_test():
     """
     check conf is ok
     """
-    util.run_command_with_except(conf.dnsmaq+" --test")
+    util.run_command_with_except(conf.dnsmasq+" --test")
