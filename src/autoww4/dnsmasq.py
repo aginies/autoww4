@@ -22,7 +22,7 @@ import autoww4.configuration as conf
 
 def restart_dnsmasq():
     """
-    restart dnsmask service
+    restart dnsmasq service
     """
     util.print_info("Re-Starting dnsmasq")
     util.systemd_restart("dnsmasq")
@@ -47,20 +47,20 @@ def dnsmasq_config(config):
     """
     # do backup
     # various config
-    util.print_info("dnsmasq config")
+    util.print_info(f"dnsmasq {config}")
     util.backup_file(config)
 
 def dnsmasq_host_conf(config):
     """
     dnsmasq host config
     """
-    util.print_info("host config")
+    util.print_info(f"host {config}")
 
 def dnsmasq_resolv_conf(config):
     """
     dnsmasq resolv config
     """
-    util.print_info("resolv config")
+    util.print_info(f"resolv {config}")
 
 def dnsmasq_test():
     """

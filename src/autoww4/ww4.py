@@ -59,11 +59,13 @@ def ww4_warewulf_conf(config):
     """
     warewulf config
     """
+    util.print_info(f"{config}")
 
 def add_node(node, ipaddr):
     """
     add node
     """
+    util.print_info(f"Adding {node} {ipaddr}")
     util.run_command_with_except(conf.wwctl +" node add "+node+" -I "+ipaddr)
     util.run_command(conf.wwctl +"node list")
 
@@ -95,9 +97,11 @@ def prepare_container(container):
     node list
     slurm configuration
     """
+    util.print_info(f"Working on {container}")
 
 def container_set_default(container, node):
     """
     set the default container to use
     """
+    util.print_info(f"{node} set container to {container}")
     util.run_command_with_except(conf.wwctl+" node set --container "+container+" "+node)

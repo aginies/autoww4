@@ -20,8 +20,8 @@ Util
 import subprocess
 import os
 import shutil
-import psutil
 import datetime
+import psutil
 import yaml
 import autoww4.containers as containers
 
@@ -216,7 +216,7 @@ def validate_yaml_file(file_path):
         with open(file_path, 'r') as stream:
             yaml_contents = yaml.safe_load(stream)
     except FileNotFoundError:
-        util.print_error(f"file {file_path} not found.")
+        print_error(f"file {file_path} not found.")
         return False
     except yaml.YAMLError as exc:
         print(f"Error while parsing the YAML file: {exc}")

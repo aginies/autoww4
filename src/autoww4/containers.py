@@ -17,20 +17,20 @@
 containers registry
 """
 
-list_familly = [ "opensuse", "ubuntu" ]
+list_familly = ["opensuse", "ubuntu"]
 
 opensuse_base_url = "docker://registry.opensuse.org/science/warewulf/"
 opensuse_list = [
-                "leap15.3",
-                "leap15.4",
-                "leap15.5",
-                "leap15.6",
-                "tumbleweed",
-                ]
+    "leap15.3",
+    "leap15.4",
+    "leap15.5",
+    "leap15.6",
+    "tumbleweed",
+]
 
 ubuntu_base_url = "docker://registry.ubuntu.org/"
 ubuntu_list = [
-                "20.4",
-                "22.4",
-                "23.4",
-                ]
+    "20.4",
+    "22.4",
+    "23.4",
+]
