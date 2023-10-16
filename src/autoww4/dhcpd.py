@@ -19,28 +19,23 @@ dhcpd config
 
 #import configparser
 import autoww4.util as util
+import autoww4.configuration as conf
 
 ######
 # ####
-
-dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
-dhcpd_sysconfig_file = "/tmp/dhcpd"
-
-dhcpd_conf_file = '/etc/dhcp/dhcpd.conf'
-dhcpd_conf_file = '/tmp/dhcpd.conf'
 
 def dhcpd_interface(interface):
     """
     change the interface
     """
-    util.change_var(dhcpd_sysconfig_file, "DHCPD_INTERFACE", str(interface))
+    util.change_var(conf.dhcpd_sysconfig_file, "DHCPD_INTERFACE", str(interface))
 
 def set_authoritative(value):
     """
     authoritative or not
     yes or no
     """
-    with open(dhcpd_conf_file, 'r') as file:
+    with open(conf.dhcpd_config_file, 'r') as file:
         dhcpd_conf = file.read()
 
     if value == "no":
@@ -54,5 +49,7 @@ def set_authoritative(value):
         elif 'authoritative' not in dhcpd_conf:
             dhcpd_conf += '\nauthoritative;\n'
 
-    with open(dhcpd_conf_file, 'w') as file:
+    with open(conf.dhcpd_config_file, 'w') as file:
         file.write(dhcpd_conf)
+
+    file.close()

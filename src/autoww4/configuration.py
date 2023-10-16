@@ -31,6 +31,9 @@ wwctl = "/usr/bin/wwctl"
 dnsmasq_config_file = "/etc/dnsmasq.conf"
 ww4_config_file = "/etc/warewulf/warewulf.conf"
 tftp_config_file = "/etc/sysconfig/tftp"
+dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
+dhcpd_config_file = '/etc/dhcp/dhcpd.conf'
+
 conffile_name = 'autoww4.yaml'
 
 def find_file_dir(name, what):
