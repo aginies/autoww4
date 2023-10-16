@@ -29,14 +29,14 @@ def doall():
     do everything automatically
     """
     # dhcp part
-    util.backup_file(conf.dnsmasq_config_file)
+    util.backup_file(conf.dhcpd_config_file)
     dhcpd.dhcpd_interface("eth0")
     dhcpd.set_authoritative("no")
     # tftp
     tftp.tftp_enable()
     tftp.tftp_restart()
     # dnsmasq
-    util.backup_file(conf.dhcpd_config_file)
+    util.backup_file(conf.dnsmasq_config_file)
     dnsmasq.enable_dnsmasq()
     dnsmasq.dnsmasq_config(conf.dnsmasq_config_file)
     dnsmasq.dnsmasq_host_conf(conf.dnsmasq_config_file)
