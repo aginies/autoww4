@@ -170,7 +170,7 @@ def print_info(text):
     """
     Print info in green
     """
-    formated_text = esc('bg_blue')+text+esc('reset')+"\n"
+    formated_text = esc('bg_blue')+text+esc('reset')
     print(formated_text)
 
 def print_summary(text):
@@ -236,7 +236,7 @@ def backup_file(file):
     backup_file = f"{file}.{timestamp}.bck"
     try:
         shutil.copy(file, backup_file)
-        util.print_info(f"Backup {file} to {backup_file}")
+        print_info(f"Backup {file} to {backup_file}")
     except FileNotFoundError:
         print(f"Error: {file} not found")
     except Exception as err:

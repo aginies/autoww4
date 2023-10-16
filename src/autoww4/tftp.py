@@ -30,7 +30,6 @@ def tftp_directory(directory):
     util.print_info("Setting TFTP_DIRECTORY to "+ directory)
     util.change_var(conf.tftp_config_file, "TFTP_DIRECTORY", str(directory))
 
-
 def tftp_option(options):
     """
     change tftp options
@@ -58,4 +57,3 @@ def tftp_restart():
     """
     util.print_info("Re-Starting tftp service")
     util.systemd_restart("tftp")
-
