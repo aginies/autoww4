@@ -29,6 +29,7 @@ conffile_locations = [
 
 wwctl = "/usr/bin/wwctl"
 dnsmasq_config_file = "/etc/dnsmasq.conf"
+dnsmasq = "/usr/sbin/dnsmasq"
 ww4_config_file = "/etc/warewulf/warewulf.conf"
 tftp_config_file = "/etc/sysconfig/tftp"
 dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"

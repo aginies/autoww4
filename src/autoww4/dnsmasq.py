@@ -18,6 +18,7 @@ dnsmasq
 """
 
 import autoww4.util as util
+import autoww4.configuration as conf
 
 wwctl = "/usr/sbin/dnsmasq"
 
@@ -61,4 +62,4 @@ def dnsmasq_test():
     """
     check conf is ok
     """
-    util.run_command_with_except("dnsmaq --test")
+    util.run_command_with_except(conf.dnsmaq+" --test")
