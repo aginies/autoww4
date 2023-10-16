@@ -31,6 +31,7 @@ wwctl = "/usr/bin/wwctl"
 dnsmasq_config_file = "/etc/dnsmasq.conf"
 dnsmasq = "/usr/sbin/dnsmasq"
 ww4_config_file = "/etc/warewulf/warewulf.conf"
+ww4_nodes_file = "/etc/warewulf/nodes.conf"
 tftp_config_file = "/etc/sysconfig/tftp"
 dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
 dhcpd_config_file = '/etc/dhcpd.conf'

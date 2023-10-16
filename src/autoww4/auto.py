@@ -46,3 +46,5 @@ def doall():
     # ww4
     util.backup_file(conf.ww4_config_file)
     ww4.ww4_warewulf_conf(conf.ww4_config_file)
+    util.backup_file(conf.ww4_nodes_file)
+    ww4.ww4_nodes_conf(conf.ww4_nodes_file)
