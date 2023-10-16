@@ -23,9 +23,8 @@ import shutil
 import psutil
 import yaml
 import autoww4.containers as containers
-import autoww4.util as util
 
-def system_command(cmd):
+def run_command(cmd):
     """
     Launch a system command
     """
@@ -65,7 +64,7 @@ def systemd_enable(service):
     """
     enable the service
     """
-    system_command("systemctl enable "+ service)
+    run_command("systemctl enable "+ service)
 
 def cmd_exists(cmd):
     """

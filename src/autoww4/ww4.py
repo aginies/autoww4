@@ -17,6 +17,7 @@
 ww4 config
 """
 
+import subprocess
 import autoww4.util as util
 
 wwctl = "/usr/bin/wwctl"
@@ -48,11 +49,40 @@ def ww4_nodes_conf(config):
     """
     nodes.conf parameter for ww4
     """
+    util.validate_yaml_file(config)
 
 def ww4_warewulf_conf(config):
     """
     warewulf config
     """
+
+def add_node(node, ipaddr):
+    """
+    add node
+    """
+    util.run_command_with_except(wwctl +" node add "+node+" -I "+ipaddr)
+    util.run_command(wwctl +"node list")
+
+def containers_available():
+    """
+    container list
+    """
+    command = wwctl+" container list"
+    try:
+        output_bytes = subprocess.check_output(command, shell=True)
+        output_str = output_bytes.decode('utf-8')
+        lines = output_str.split('\n')
+
+        container_names = [line.split()[0] for line in lines if line.strip() and line.split()]
+        container_list = container_names[1:]
+
+        for name in container_list:
+            print(name)
+
+        return container_list
+
+    except subprocess.CalledProcessError as err:
+        print(f"Error: {err.returncode}\n{err.output}")
 
 def prepare_container(container):
     """
@@ -62,7 +92,8 @@ def prepare_container(container):
     slurm configuration
     """
 
-def container_set_default(container):
+def container_set_default(container, node):
     """
     set the default container to use
     """
+    util.run_command_with_except(wwctl+" node set --container "+container+" "+node)

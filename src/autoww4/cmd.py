@@ -23,6 +23,7 @@ import autoww4.util as util
 #import autoww4.configuration as configuration
 import autoww4.dhcpd as dhcpd
 import autoww4.containers as containers
+import autoww4.ww4 as ww4
 
 ######
 # Interactive command
@@ -74,13 +75,19 @@ class Interactive(Cmd):
 
     def do_list_containers(self, args):
         """
-        list all containers available
+        list all containers possible
         """
         if args not in containers.list_familly:
             util.print_error("Please select a correct familly:")
             print(str(containers.list_familly))
         else:
             list_containers = util.list_containers(args)
+
+    def do_available_container(self, arfs):
+        """
+        list containers installed
+        """
+        ww4.containers_available()
 
     def complete_list_containers(self, text, _line, _begidx, _endidx):
         """
