@@ -20,24 +20,25 @@ dnsmasq
 import autoww4.util as util
 import autoww4.configuration as conf
 
-wwctl = "/usr/sbin/dnsmasq"
-
 def restart_dnsmasq():
     """
     restart dnsmask service
     """
+    util.print_info("Re-Starting dnsmasq")
     util.systemd_restart("dnsmasq")
 
 def start_dnsmasq():
     """
     start dnsmasq
     """
+    util.print_info("Starting dnsmasq")
     util.systemd_start("dnsmasq")
 
 def enable_dnsmasq():
     """
     enable dnsmasq
     """
+    util.print_info("Enabling dnsmasq")
     util.systemd_enable("dnsmasq")
 
 def dnsmasq_config(config):
@@ -46,20 +47,24 @@ def dnsmasq_config(config):
     """
     # do backup
     # various config
+    util.print_info("dnsmasq config")
     util.backup_file(config)
 
 def dnsmasq_host_conf(config):
     """
     dnsmasq host config
     """
+    util.print_info("host config")
 
 def dnsmasq_resolv_conf(config):
     """
     dnsmasq resolv config
     """
+    util.print_info("resolv config")
 
 def dnsmasq_test():
     """
     check conf is ok
     """
+    util.print_info("Testing dnsmasq configuration")
     util.run_command_with_except(conf.dnsmasq+" --test")

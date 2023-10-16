@@ -28,6 +28,7 @@ def dhcpd_interface(interface):
     """
     change the interface
     """
+    util.print_info("Setting DHCPD_INTERFACE to "+str(interface))
     util.change_var(conf.dhcpd_sysconfig_file, "DHCPD_INTERFACE", str(interface))
 
 def set_authoritative(value):
@@ -43,11 +44,13 @@ def set_authoritative(value):
             dhcpd_conf += '\nnot authoritative;\n'
         elif 'authoritative' in dhcpd_conf:
             dhcpd_conf = dhcpd_conf.replace('authoritative;', 'not authoritative;')
+        util.print_info("Setting dhcpd to not authoritative")
     elif value == "yes":
         if 'not authoritative;' not in dhcpd_conf:
             dhcpd_conf = dhcpd_conf.replace('not authoritative;', 'authoritative;')
         elif 'authoritative' not in dhcpd_conf:
             dhcpd_conf += '\nauthoritative;\n'
+        util.print_info("Setting dhcpd to authoritative")
 
     with open(conf.dhcpd_config_file, 'w') as file:
         file.write(dhcpd_conf)

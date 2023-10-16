@@ -25,29 +25,34 @@ def ww4_start():
     """
     start warewulfd service
     """
+    util.print_info("Starting ww4")
     util.systemd_start("warewulfd")
 
 def ww4_restart():
     """
     restart warewulfd service
     """
+    util.print_info("Re-Starting ww4")
     util.systemd_restart("warewulfd")
 
 def ww4_enable():
     """
     enable warewulfd service
     """
+    util.print_info("Enabling ww4")
     util.systemd_enable("warewulfd")
 
 def import_container(container):
     """
     import a container
     """
+    util.print_info("Importing container")
 
 def ww4_nodes_conf(config):
     """
     nodes.conf parameter for ww4
     """
+    util.print_info(f"validating ww4 {config}")
     util.validate_yaml_file(config)
 
 def ww4_warewulf_conf(config):

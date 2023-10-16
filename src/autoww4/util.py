@@ -216,7 +216,7 @@ def validate_yaml_file(file_path):
         with open(file_path, 'r') as stream:
             yaml_contents = yaml.safe_load(stream)
     except FileNotFoundError:
-        print(f"file {file_path} not found.")
+        util.print_error(f"file {file_path} not found.")
         return False
     except yaml.YAMLError as exc:
         print(f"Error while parsing the YAML file: {exc}")
@@ -236,6 +236,7 @@ def backup_file(file):
     backup_file = f"{file}.{timestamp}.bck"
     try:
         shutil.copy(file, backup_file)
+        util.print_info(f"Backup {file} to {backup_file}")
     except FileNotFoundError:
         print(f"Error: {file} not found")
     except Exception as err:
