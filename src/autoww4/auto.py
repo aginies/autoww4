@@ -21,6 +21,7 @@ import autoww4.dhcpd as dhcpd
 import autoww4.tftp as tftp
 import autoww4.dnsmasq as dnsmasq
 import autoww4.ww4 as ww4
+import autoww4.util as util
 import autoww4.configuration as conf
 
 def doall():
