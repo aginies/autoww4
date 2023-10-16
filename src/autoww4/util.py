@@ -170,7 +170,7 @@ def print_info(text):
     """
     Print info in green
     """
-    formated_text = esc('bg_blue')+text+esc('reset')
+    formated_text = esc('bg_blue')+text+esc('reset')+" "
     print(formated_text)
 
 def print_summary(text):
