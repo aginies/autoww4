@@ -21,6 +21,7 @@ import subprocess
 import os
 import shutil
 import psutil
+import datetime
 import yaml
 import autoww4.containers as containers
 
@@ -113,7 +114,7 @@ def change_var(conffile, var_to_change, var_value):
 
         print(f'{var_to_change} set to {var_value}')
     else:
-        util.print_error(config_file_path+" Doesnt exist!")
+        print_error(config_file_path+" Doesnt exist!")
 
 COLORS = {
     'reset': '\033[0m',
@@ -224,6 +225,19 @@ def validate_yaml_file(file_path):
         return False
 
     return yaml_contents
+
+def backup_file(file):
+    """
+    do a backup of the file with a timestamp
+    """
+    timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
+    backup_file = f"{file}.{timestamp}.bck"
+    try:
+        shutil.copy(file, backup_file)
+    except FileNotFoundError:
+        print(f"Error: {file} not found")
+    except Exception as err:
+        print(f"An error occurred: {err}")
 
 def check_iam_root():
     """

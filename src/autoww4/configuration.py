@@ -18,8 +18,6 @@ configuration
 """
 
 import os
-import subprocess
-import yaml
 import autoww4.util as util
 
 conffile_locations = [
@@ -29,6 +27,10 @@ conffile_locations = [
     '/etc',
 ]
 
+wwctl = "/usr/bin/wwctl"
+dnsmasq_config_file = "/etc/dnsmasq.conf"
+ww4_config_file = "/etc/warewulf/warewulf.conf"
+tftp_config_file = "/etc/sysconfig/tftp"
 conffile_name = 'autoww4.yaml'
 
 def find_file_dir(name, what):

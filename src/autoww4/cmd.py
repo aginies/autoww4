@@ -24,6 +24,7 @@ import autoww4.util as util
 import autoww4.dhcpd as dhcpd
 import autoww4.containers as containers
 import autoww4.ww4 as ww4
+import autoww4.ww4 as auto
 
 ######
 # Interactive command
@@ -64,7 +65,7 @@ class Interactive(Cmd):
 
     def complete_do_interface(self, text, _line, _begidx, _endidx):
         """
-        auto completion interface
+        Auto completion interface
         """
         list_interface = util.get_network_interface()
         if not text:
@@ -75,23 +76,23 @@ class Interactive(Cmd):
 
     def do_list_containers_registry(self, args):
         """
-        list all containers possible
+        List all containers registry
         """
         if args not in containers.list_familly:
             util.print_error("Please select a correct familly:")
             print(str(containers.list_familly))
         else:
-            list_containers_registry = util.list_containers_registry(args)
+            util.list_containers_registry(args)
 
     def do_available_container(self, arfs):
         """
-        list containers installed
+        List containers installed
         """
         ww4.containers_available()
 
     def complete_list_containers(self, text, _line, _begidx, _endidx):
         """
-        auto complete familly for containers
+        Auto complete familly for containers
         """
         list_f = containers.list_familly
         if not text:
@@ -99,6 +100,12 @@ class Interactive(Cmd):
         else:
             completions = [f for f in list_f if f.startswith(text)]
         return completions
+
+    def do_auto(self, _args):
+        """
+        Do all the stuff automatically
+        """
+        auto.doall()
 
     def do_quit(self, _args):
         """

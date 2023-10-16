@@ -18,25 +18,23 @@ tftp config
 """
 
 import autoww4.util as util
+import autoww4.configuration as conf
 
 ######
 # ####
-
-tftp_config_file = "/etc/sysconfig/tftp"
-tftp_config_file = "/tmp/tftp"
 
 def tftp_directory(directory):
     """
     change the directory
     """
-    util.change_var(tftp_config_file, "TFTP_DIRECTORY", str(directory))
+    util.change_var(conf.tftp_config_file, "TFTP_DIRECTORY", str(directory))
 
 
 def tftp_option(options):
     """
     change tftp options
     """
-    util.change_var(tftp_config_file, "TFTP_OPTIONS", str(options))
+    util.change_var(conf.tftp_config_file, "TFTP_OPTIONS", str(options))
 
 def tftp_enable():
     """

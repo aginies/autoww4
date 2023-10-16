@@ -19,8 +19,7 @@ ww4 config
 
 import subprocess
 import autoww4.util as util
-
-wwctl = "/usr/bin/wwctl"
+import autoww4.configuration as conf
 
 def ww4_start():
     """
@@ -60,14 +59,14 @@ def add_node(node, ipaddr):
     """
     add node
     """
-    util.run_command_with_except(wwctl +" node add "+node+" -I "+ipaddr)
-    util.run_command(wwctl +"node list")
+    util.run_command_with_except(conf.wwctl +" node add "+node+" -I "+ipaddr)
+    util.run_command(conf.wwctl +"node list")
 
 def containers_available():
     """
     container list
     """
-    command = wwctl+" container list"
+    command = conf.wwctl+" container list"
     try:
         output_bytes = subprocess.check_output(command, shell=True)
         output_str = output_bytes.decode('utf-8')
@@ -96,4 +95,4 @@ def container_set_default(container, node):
     """
     set the default container to use
     """
-    util.run_command_with_except(wwctl+" node set --container "+container+" "+node)
+    util.run_command_with_except(conf.wwctl+" node set --container "+container+" "+node)
