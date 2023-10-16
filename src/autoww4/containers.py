@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-containers
+containers registry
 """
 
 list_familly = [ "opensuse", "ubuntu" ]

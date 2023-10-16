@@ -73,7 +73,7 @@ class Interactive(Cmd):
             completions = [f for f in list_interface if f.startswith(text)]
         return completions
 
-    def do_list_containers(self, args):
+    def do_list_containers_registry(self, args):
         """
         list all containers possible
         """
@@ -81,7 +81,7 @@ class Interactive(Cmd):
             util.print_error("Please select a correct familly:")
             print(str(containers.list_familly))
         else:
-            list_containers = util.list_containers(args)
+            list_containers_registry = util.list_containers_registry(args)
 
     def do_available_container(self, arfs):
         """

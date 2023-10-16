@@ -83,7 +83,7 @@ def get_network_interface():
         interface_list.append(interface_name)
     return interface_list
 
-def list_containers(familly):
+def list_containers_registry(familly):
     """
     list all containers available
     """
