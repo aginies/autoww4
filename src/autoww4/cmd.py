@@ -24,7 +24,7 @@ import autoww4.util as util
 import autoww4.dhcpd as dhcpd
 import autoww4.containers as containers
 import autoww4.ww4 as ww4
-import autoww4.ww4 as auto
+import autoww4.auto as auto
 
 ######
 # Interactive command
