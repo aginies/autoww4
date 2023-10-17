@@ -38,10 +38,8 @@ def doall():
     # dnsmasq
     util.backup_file(conf.dnsmasq_config_file)
     dnsmasq.enable_dnsmasq()
-    dnsmasq.dnsmasq_config(conf.dnsmasq_config_file)
-    dnsmasq.dnsmasq_host_conf(conf.dnsmasq_config_file)
+    dnsmasq.dnsmasq_config(conf.dnsmasq_config_file, conf.interface)
     dnsmasq.dnsmasq_resolv_conf(conf.dnsmasq_config_file)
-    dnsmasq.dnsmasq_test()
     dnsmasq.restart_dnsmasq()
     # ww4
     util.backup_file(conf.ww4_config_file)
@@ -51,6 +49,7 @@ def doall():
     ww4.ww4_enable()
     ww4.ww4_restart()
     ww4.create_nodes_list()
+    dnsmasq.dnsmasq_test()
     ww4.import_container("opensuse", "leap15.4")
     ww4.prepare_container("leap15.4")
     ww4.container_set_default("leap15.4", conf.nodename+"[1-"+str(conf.maxnode)+"]")

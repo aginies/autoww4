@@ -27,14 +27,23 @@ conffile_locations = [
     '/etc',
 ]
 
+# should be in atuoww4.yaml file later
+interface = "eth0"
 nodename = "slenode"
 maxnode = 3
-wwctl = "/usr/bin/wwctl"
+
 dnsmasq_config_file = "/etc/dnsmasq.conf"
+dnsmasq_hosts = "/etc/dnsmasq-hosts.conf"
+dnsmasq_resolv = "/etc/dnsmasq-resolv.conf"
 dnsmasq = "/usr/sbin/dnsmasq"
+dnsmasq_domain = "sle.lan"
+
+wwctl = "/usr/bin/wwctl"
 ww4_config_file = "/etc/warewulf/warewulf.conf"
 ww4_nodes_file = "/etc/warewulf/nodes.conf"
+
 tftp_config_file = "/etc/sysconfig/tftp"
+
 dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
 dhcpd_config_file = '/etc/dhcpd.conf'
 

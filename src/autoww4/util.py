@@ -24,6 +24,9 @@ import datetime
 import psutil
 import yaml
 import re
+import socket
+import fcntl
+import struct
 import autoww4.containers as containers
 
 def run_command(cmd):
@@ -278,3 +281,17 @@ def extract_subnet_range(config):
                 subnet_ranges.append((subnet_info, range_match.group(1, 2)))
 
     return subnet_ranges
+
+
+def get_ip_address(interface):
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        ip_address = socket.inet_ntoa(fcntl.ioctl(
+            sock.fileno(),
+            0x8915,  # SIOCGIFADDR
+            struct.pack('256s', interface_name[:15].encode('utf-8'))
+        )[20:24])
+
+        return ip_address
+    except Exception as err:
+        return str(err)

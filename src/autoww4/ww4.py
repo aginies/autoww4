@@ -125,7 +125,6 @@ def create_nodes_list():
     subnet_ranges = util.extract_subnet_range(conf.dhcpd_config_file)
     for _, range_i in subnet_ranges:
         number = 0
-        print(range_i[0])
         parts_range_ip = range_i[0].split(".")[:3]
         range_ip = ".".join(parts_range_ip)
         last_number_ip = range_i[0].split(".")[-1]
@@ -134,4 +133,5 @@ def create_nodes_list():
             ipaddr = range_ip+"."+str(lastip)
             nname = conf.nodename+str(number)
             add_node(nname, ipaddr)
+            dnsmasq.add_node(nname, ipaddr)
             number += 1

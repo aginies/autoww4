@@ -41,7 +41,7 @@ def enable_dnsmasq():
     util.print_info("Enabling dnsmasq")
     util.systemd_enable("dnsmasq")
 
-def dnsmasq_config(config):
+def dnsmasq_config(config, interface):
     """
     configure dnsmasq
     """
@@ -49,18 +49,30 @@ def dnsmasq_config(config):
     # various config
     util.print_info(f"dnsmasq {config}")
     util.backup_file(config)
+    ipaddr = util.get_ip_address(interface)
+    util.change_var(config, "interface", interface)
+    util.change_var(config, "address", "/"+conf.dnsmasq_domain+"/127.0.0.1")
+    util.change_var(config, "address", "/"+conf.dnsmasq_domain+"/"+ipaddr)
+    util.change_var(config, "resolv-file", conf.dnsmasq_resolv)
+    util.change_var(config, "addn-hosts", conf.dnsmasq_hosts)
+    util.change_var(config, "server", ipaddr)
+    util.change_var(config, "domain", conf.dnsmasq_domain)
 
-def dnsmasq_host_conf(config):
+def add_node(node, ipaddr):
     """
-    dnsmasq host config
+    add node in dnsmasq hosts conf
     """
-    util.print_info(f"host {config}")
+    util.print_info(f"host {conf.dnsmasq_hosts}")
+    with open(conf.dnsmasq_hosts, "w") as file:
+        file.write(ipaddr+" "+node)
+    file.close()
 
 def dnsmasq_resolv_conf(config):
     """
     dnsmasq resolv config
     """
     util.print_info(f"resolv {config}")
+    util.change_var(conf.dnsmasq_resolv, "nameserver", "127.0.0.1")
 
 def dnsmasq_test():
     """
