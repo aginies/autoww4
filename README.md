@@ -28,7 +28,7 @@ Example:
 
 # Usage
 
-config are stored in [configuration](src/autow4/configuration.py) for now,
+config are stored in [configuration.py](src/autoww4/configuration.py) for now,
 will be in [autoww4.yaml](src/autoww4.yaml) in the futur
 ```
 git clone https://github.com/aginies/autoww4

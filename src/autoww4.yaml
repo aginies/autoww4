@@ -1,53 +1,25 @@
 # WARNING: INCORRET PARAMATERS WILL LEAD TO BAD VM CONFIGURATION
-# Dont change the section name
-# This will overwrite Scenario settings...
 
-config:
-  - path: /etc/virt-scenario
-#  - vm-config-store: /etc/virt-scenario/vmconfig
-  - vm-config-store: ~/.local/virt-scenario/vmconfig
+ww4:
+  - wwctl: "/usr/bin/wwctl"
+  - ww4_config_file: "/etc/warewulf/warewulf.conf"
+  - ww4_nodes_file: "/etc/warewulf/nodes.conf"
 
-#hypervisors:
-#  - hvconf: virthosts.yaml
+general:
+  - interface: "eth0"
+  - nodename: "slenode"
+  - maxnode: 3
 
-emulator:
-  - emulator: /usr/bin/qemu-system-x86_64
-  - fw_meta: /usr/share/qemu/firmware/
+dnsmasq:
+  - dnsmasq_config_file: "/etc/dnsmasq.conf"
+  - dnsmasq_hosts: "/etc/dnsmasq.d/dnsmasq-hosts.conf"
+  - dnsmasq_resolv: "/etc/dnsmasq.d/dnsmasq-resolv.conf"
+  - dnsmasq: "/usr/sbin/dnsmasq"
+  - dnsmasq_domain: "sle.lan"
 
-#input:
-# this value overwrite scenario, and in some case
-# create two inputs devices for same device which can cause
-# issue (ie: one ps2 + one virtio keyboard)
-#  - keyboard: virtio
-#  - mouse: virtio
+tftp:
+  - tftp_config_file: "/etc/sysconfig/tftp"
 
-architecture:
-  - arch: x86_64
-
-STORAGE_DATA:
-# some options are only available with qcow2 format and
-# will be ignored in case of any other image format
-  - disk_type: file
-# disk cache: writeback, writethrough, none, unsafe, directsync
-#  - disk_cache: none
-  - disk_target: vda
-  - disk_bus: virtio
-  - path: /var/lib/libvirt/images
-# format: qcow2, raw
-#  - format: qcow2
-# host side: qemu-img creation options (-o), qemu-img --help
-  - unit: G
-  - capacity: 8
-  - cluster_size: 1024
-#  - lazy_refcounts: on
-# preallocation: off, metadata (qcow2), falloc, full
-#  - preallocation: metadata
-  - compression_type: zlib
-# encryption: on, off
-#  - encryption: off
-
-host_filesystem:
-  - fmode: 644
-  - dmode: 755
-  - source_dir: /tmp
-  - target_dir: /tmp/host
+dhcpd:
+  - dhcpd_sysconfig_file: "/etc/sysconfig/dhcpd"
+  - dhcpd_config_file: '/etc/dhcpd.conf'
