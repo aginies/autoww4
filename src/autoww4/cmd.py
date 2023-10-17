@@ -84,13 +84,7 @@ class Interactive(Cmd):
         else:
             util.list_containers_registry(args)
 
-    def do_available_container(self, arfs):
-        """
-        List containers installed
-        """
-        ww4.containers_available()
-
-    def complete_list_containers(self, text, _line, _begidx, _endidx):
+    def complete_list_containers_registry(self, text, _line, _begidx, _endidx):
         """
         Auto complete familly for containers
         """
@@ -100,6 +94,12 @@ class Interactive(Cmd):
         else:
             completions = [f for f in list_f if f.startswith(text)]
         return completions
+
+    def do_available_container(self, arfs):
+        """
+        List containers installed
+        """
+        ww4.containers_available()
 
     def do_auto(self, _args):
         """

@@ -20,6 +20,7 @@ ww4 config
 import subprocess
 import autoww4.util as util
 import autoww4.configuration as conf
+import autoww4.containers as containers
 
 def ww4_start():
     """
@@ -42,11 +43,21 @@ def ww4_enable():
     util.print_info("Enabling ww4")
     util.systemd_enable("warewulfd")
 
-def import_container(container):
+def import_container(familly, product):
     """
     import a container
     """
-    util.print_info("Importing container")
+    util.print_info(f"Importing container: {familly} {product}")
+    list_containers = containers_available()
+    for test in list_containers:
+        if test == product:
+            util.print_error(f"{familly} {product} already imported")
+        else:
+            if familly == "opensuse":
+                for plist in containers.opensuse_list:
+                    if plist == product:
+                        container = containers.opensuse_base_url+plist+"/containers/kernel:latest"
+                        util.run_command_with_except(conf.wwctl+" container import "+container)
 
 def ww4_nodes_conf(config):
     """
