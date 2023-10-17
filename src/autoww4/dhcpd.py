@@ -41,16 +41,17 @@ def set_authoritative(value):
 
     if value == "no":
         if 'not authoritative;' not in dhcpd_conf:
-            dhcpd_conf += '\nnot authoritative;\n'
-        elif 'authoritative' in dhcpd_conf:
-            dhcpd_conf = dhcpd_conf.replace('authoritative;', 'not authoritative;')
-        util.print_info("Setting dhcpd to not authoritative")
+            if 'authoritative' in dhcpd_conf:
+                dhcpd_conf = dhcpd_conf.replace('authoritative;', 'not authoritative;')
+            else:
+                dhcpd_conf += '\nnot authoritative;\n'
+            util.print_info("Setting dhcpd to not authoritative")
     elif value == "yes":
-        if 'not authoritative;' not in dhcpd_conf:
-            dhcpd_conf = dhcpd_conf.replace('not authoritative;', 'authoritative;')
-        elif 'authoritative' not in dhcpd_conf:
-            dhcpd_conf += '\nauthoritative;\n'
-        util.print_info("Setting dhcpd to authoritative")
+        if 'authnot authoritative;' in dhcpd_conf:
+                dhcpd_conf = dhcpd_conf.replace('not authoritative;', 'authoritative;')
+            else:
+                dhcpd_conf += '\nauthoritative;\n'
+            util.print_info("Setting dhcpd to authoritative")
 
     with open(conf.dhcpd_config_file, 'w') as file:
         file.write(dhcpd_conf)
