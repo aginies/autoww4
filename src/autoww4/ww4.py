@@ -21,6 +21,7 @@ import subprocess
 import autoww4.util as util
 import autoww4.configuration as conf
 import autoww4.containers as containers
+import autoww4.dnsmas as dnsmasq
 
 def ww4_start():
     """

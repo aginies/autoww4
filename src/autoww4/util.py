@@ -289,9 +289,24 @@ def get_ip_address(interface):
         ip_address = socket.inet_ntoa(fcntl.ioctl(
             sock.fileno(),
             0x8915,  # SIOCGIFADDR
-            struct.pack('256s', interface_name[:15].encode('utf-8'))
+            struct.pack('256s', interface[:15].encode('utf-8'))
         )[20:24])
 
         return ip_address
     except Exception as err:
         return str(err)
+
+def create_if_not_exist(file):
+    """
+    create a file if it doesnt exist
+    """
+    if os.path.isfile(file):
+        pass
+    else:
+        try:
+            with open(file, "w") as file:
+                pass
+        except FileNotFoundError:
+            print(f"File '{file}' not found.")
+        except Exception as err:
+            print(f"An error occurred: {err}")
