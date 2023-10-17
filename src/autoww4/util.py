@@ -117,7 +117,6 @@ def change_var(conffile, var_to_change, var_value):
             file.writelines(lines)
 
         print(f'{var_to_change} set to {var_value}')
-        file.close()
     else:
         print_error(config_file_path+" Doesnt exist!")
 
