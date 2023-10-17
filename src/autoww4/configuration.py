@@ -49,17 +49,6 @@ dhcpd_config_file = '/etc/dhcpd.conf'
 
 conffile_name = 'autoww4.yaml'
 
-def find_conffile():
-    global conffile_name
-    return find_file_dir(conffile_name, "file")
-
-class Configuration():
-    """
-    all stuff relative to configuration
-    """
-    conffile = find_conffile()
-    util.check_iam_root()
-
 def find_file_dir(name, what):
     """
     find file
@@ -90,3 +79,15 @@ def check_conffile(conf):
         print("conf /path/to/file.yaml")
         return False
     return True
+
+def find_conffile():
+    global conffile_name
+    return find_file_dir(conffile_name, "file")
+
+class Configuration():
+    """
+    all stuff relative to configuration
+    """
+    conffile = find_conffile()
+    util.check_iam_root()
+
