@@ -50,20 +50,7 @@ def doall():
     ww4.ww4_nodes_conf(conf.ww4_nodes_file)
     ww4.ww4_enable()
     ww4.ww4_restart()
-    # create the node config with nodemane and IP
-    subnet_ranges = util.extract_subnet_range(conf.dhcpd_config_file)
-    for _, range_i in subnet_ranges:
-        number = 0
-        print(range_i[0])
-        parts_range_ip = range_i[0].split(".")[:3]
-        range_ip = ".".join(parts_range_ip)
-        last_number_ip = range_i[0].split(".")[-1]
-        while number <= conf.maxnode:
-            lastip = int(last_number_ip)+number
-            ipaddr = range_ip+"."+str(lastip)
-            nname = conf.nodename+str(number)
-            ww4.add_node(nname, ipaddr)
-            number += 1
+    www.create_nodes_list()
     ww4.import_container("opensuse", "leap15.4")
     ww4.prepare_container("leap15.4")
     ww4.container_set_default("leap15.4", conf.nodename+"[1-"+str(conf.maxnode)+"]")

@@ -116,3 +116,22 @@ def container_set_default(container, node):
     """
     util.print_info(f"{node} set container to {container}")
     util.run_command_with_except(conf.wwctl+" node set --container "+container+" "+node)
+
+def create_nodes_list():
+    """
+    create the node list from dhcpd config
+    """
+    # create the node config with nodemane and IP
+    subnet_ranges = util.extract_subnet_range(conf.dhcpd_config_file)
+    for _, range_i in subnet_ranges:
+        number = 0
+        print(range_i[0])
+        parts_range_ip = range_i[0].split(".")[:3]
+        range_ip = ".".join(parts_range_ip)
+        last_number_ip = range_i[0].split(".")[-1]
+        while number <= conf.maxnode:
+            lastip = int(last_number_ip)+number
+            ipaddr = range_ip+"."+str(lastip)
+            nname = conf.nodename+str(number)
+            add_node(nname, ipaddr)
+            number += 1

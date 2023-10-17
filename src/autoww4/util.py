@@ -262,7 +262,6 @@ def find_ext_file(ext):
             files_list.append(files)
     return files_list
 
-
 def extract_subnet_range(config):
     """
     return all subnet available
