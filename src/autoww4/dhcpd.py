@@ -47,7 +47,8 @@ def set_authoritative(value):
                 dhcpd_conf += '\nnot authoritative;\n'
             util.print_info("Setting dhcpd to not authoritative")
     elif value == "yes":
-        if 'authnot authoritative;' in dhcpd_conf:
+        if 'authoritative;' not in dhcpd_conf:
+            if 'not authoritative' in dhcpd_conf:
                 dhcpd_conf = dhcpd_conf.replace('not authoritative;', 'authoritative;')
             else:
                 dhcpd_conf += '\nauthoritative;\n'
