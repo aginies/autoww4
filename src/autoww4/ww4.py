@@ -57,7 +57,7 @@ def import_container(familly, product):
                 for plist in containers.opensuse_list:
                     if plist == product:
                         container = containers.opensuse_base_url+plist+"/containers/kernel:latest"
-                        util.run_command_with_except(conf.wwctl+" container import "+container)
+                        util.run_command_with_except(conf.wwctl+" container import "+container product)
 
 def ww4_nodes_conf(config):
     """
@@ -92,7 +92,7 @@ def containers_available():
 
         container_names = [line.split()[0] for line in lines if line.strip() and line.split()]
         container_list = container_names[1:]
-
+        util.print_info(f"Container(s) imported:")
         for name in container_list:
             print(name)
 
