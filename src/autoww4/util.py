@@ -104,22 +104,27 @@ def change_var(conffile, var_to_change, var_value):
     change var in a config file
     """
     config_file_path = conffile
+    modified_lines = []
+    change_made = False
     if os.path.isfile(config_file_path):
         with open(config_file_path, 'r') as file:
-            lines = file.readlines()
+            for line in file:
+            # Check if the line contains the variable you want to change
+                if (not change_made) and (line.strip().startswith(var_to_change + '=') or line.strip().startswith('#' + var_to_change + '=')):
+                    # If it's a commented line, uncomment it
+                    if line.strip().startswith('#'):
+                        line = line.replace('#', '', 1)
+                    # Update the value
+                    line = var_to_change + '=' + var_value + '\n'
+                    change_made = True
+                modified_lines.append(line)
 
-        for data, line in enumerate(lines):
-            if line.startswith(var_to_change+'='):
-                lines[data] = f'{var_to_change}={var_value}\n'
-                break
-            elif line.startswith("#"+var_to_change+'='):
-                lines[data] = f'#{var_to_change}={var_value}\n'
-                break
-
+        # Open the config file for writing and save the changes
         with open(config_file_path, 'w') as file:
-            file.writelines(lines)
+            file.writelines(modified_lines)
 
         print(f'{var_to_change} set to {var_value}')
+        file.close()
     else:
         print_error(config_file_path+" Doesnt exist!")
 
