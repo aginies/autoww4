@@ -119,6 +119,9 @@ def change_var(conffile, var_to_change, var_value):
                     change_made = True
                 modified_lines.append(line)
 
+        if not change_made:
+            modified_lines.append(var_to_change + '=' + var_value + '\n')
+
         # Open the config file for writing and save the changes
         with open(config_file_path, 'w') as file:
             file.writelines(modified_lines)
