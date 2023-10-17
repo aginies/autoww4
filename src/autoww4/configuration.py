@@ -49,6 +49,10 @@ dhcpd_config_file = '/etc/dhcpd.conf'
 
 conffile_name = 'autoww4.yaml'
 
+def find_conffile():
+    global conffile_name
+    return find_file_dir(conffile_name, "file")
+
 class Configuration():
     """
     all stuff relative to configuration
@@ -75,10 +79,6 @@ def find_file_dir(name, what):
                 return tofind
 
     return conffile
-
-def find_conffile():
-    global conffile_name
-    return find_file_dir(conffile_name, "file")
 
 def check_conffile(conf):
     """
