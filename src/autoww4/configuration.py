@@ -33,8 +33,8 @@ nodename = "slenode"
 maxnode = 3
 
 dnsmasq_config_file = "/etc/dnsmasq.conf"
-dnsmasq_hosts = "/etc/dnsmasq-hosts.conf"
-dnsmasq_resolv = "/etc/dnsmasq-resolv.conf"
+dnsmasq_hosts = "/etc/dnsmasq.d/dnsmasq-hosts.conf"
+dnsmasq_resolv = "/etc/dnsmasq.d/dnsmasq-resolv.conf"
 dnsmasq = "/usr/sbin/dnsmasq"
 dnsmasq_domain = "sle.lan"
 
@@ -48,6 +48,13 @@ dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
 dhcpd_config_file = '/etc/dhcpd.conf'
 
 conffile_name = 'autoww4.yaml'
+
+class Configuration():
+    """
+    all stuff relative to configuration
+    """
+    conffile = find_conffile()
+    util.check_iam_root()
 
 def find_file_dir(name, what):
     """
@@ -83,10 +90,3 @@ def check_conffile(conf):
         print("conf /path/to/file.yaml")
         return False
     return True
-
-class Configuration():
-    """
-    all stuff relative to configuration
-    """
-    conffile = find_conffile()
-    util.check_iam_root()
