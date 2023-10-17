@@ -50,7 +50,7 @@ def doall():
     ww4.ww4_nodes_conf(conf.ww4_nodes_file)
     ww4.ww4_enable()
     ww4.ww4_restart()
-    www.create_nodes_list()
+    ww4.create_nodes_list()
     ww4.import_container("opensuse", "leap15.4")
     ww4.prepare_container("leap15.4")
     ww4.container_set_default("leap15.4", conf.nodename+"[1-"+str(conf.maxnode)+"]")
