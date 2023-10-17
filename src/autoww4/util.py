@@ -99,7 +99,7 @@ def list_containers_registry(familly):
         for plist in containers.ubuntu_list:
             print(containers.ubuntu_base_url+plist+"/containers/kernel:latest")
 
-def change_var(conffile, var_to_change, var_value):
+def change_var(conffile, var_to_change, var_value, equal="="):
     """
     change var in a config file
     """
@@ -110,17 +110,17 @@ def change_var(conffile, var_to_change, var_value):
         with open(config_file_path, 'r') as file:
             for line in file:
             # Check if the line contains the variable you want to change
-                if (not change_made) and (line.strip().startswith(var_to_change + '=') or line.strip().startswith('#' + var_to_change + '=')):
+                if (not change_made) and (line.strip().startswith(var_to_change + equal) or line.strip().startswith('#' + var_to_change + equal)):
                     # If it's a commented line, uncomment it
                     if line.strip().startswith('#'):
                         line = line.replace('#', '', 1)
                     # Update the value
-                    line = var_to_change + '=' + var_value + '\n'
+                    line = var_to_change + equal + var_value + '\n'
                     change_made = True
                 modified_lines.append(line)
 
         if not change_made:
-            modified_lines.append(var_to_change + '=' + var_value + '\n')
+            modified_lines.append(var_to_change + equal + var_value + '\n')
 
         # Open the config file for writing and save the changes
         with open(config_file_path, 'w') as file:

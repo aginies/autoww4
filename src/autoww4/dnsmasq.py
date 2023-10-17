@@ -81,7 +81,7 @@ def dnsmasq_resolv_conf(config):
     """
     util.create_if_not_exist(config)
     util.print_info(f"resolv {config}")
-    util.change_var(conf.dnsmasq_resolv, "nameserver", "127.0.0.1")
+    util.change_var(conf.dnsmasq_resolv, "nameserver", "127.0.0.1", " ")
 
 def dnsmasq_test():
     """
