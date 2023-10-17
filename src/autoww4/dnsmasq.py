@@ -64,16 +64,16 @@ def add_node(node, ipaddr):
     """
     util.print_info(f"host {conf.dnsmasq_hosts}")
     ip_exist = False
-    with open(conf.dnsmasq_host, 'r') as file:
+    with open(conf.dnsmasq_hosts, 'r') as file:
         for line in file:
             if ipaddr in line:
-                ip_exists = True
+                ip_exist = True
                 break
     
     # no ip previously see in the config file
-    if not ip_exists:
+    if not ip_exist:
         with open(conf.dnsmasq_hosts, "a") as file:
-            file.write(ipaddr+" "+node)
+            file.write(ipaddr+" "+node+"\n")
 
 def dnsmasq_resolv_conf(config):
     """

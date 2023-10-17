@@ -109,8 +109,11 @@ def change_var(conffile, var_to_change, var_value):
             lines = file.readlines()
 
         for data, line in enumerate(lines):
-            if line.startswith(var_to_change + '='):
+            if line.startswith(var_to_change+'='):
                 lines[data] = f'{var_to_change}={var_value}\n'
+                break
+            elif line.startswith("#"+var_to_change+'='):
+                lines[data] = f'#{var_to_change}={var_value}\n'
                 break
 
         with open(config_file_path, 'w') as file:
