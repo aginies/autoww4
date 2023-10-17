@@ -28,10 +28,13 @@ Example:
 
 # Usage
 
+config are stored in [configuration](src/autow4/configuration.py) for now,
+will be in [autoww4.yaml](src/autoww4.yaml) in the futur
 ```
 git clone https://github.com/aginies/autoww4
 cd autoww4/src
 python3 -m autoww4
+auto
 ```
 
 # Functions
@@ -46,10 +49,9 @@ def doall():
 [configuration.py](src/autoww4/configuration.py)
 ```
 def find_file_dir(name, what):
-def find_conffile():
 def check_conffile(conf):
+def find_conffile():
 ```
-
 [dhcpd.py](src/autoww4/dhcpd.py)
 ```
 def dhcpd_interface(interface):
@@ -60,8 +62,8 @@ def set_authoritative(value):
 def restart_dnsmasq():
 def start_dnsmasq():
 def enable_dnsmasq():
-def dnsmasq_config(config):
-def dnsmasq_host_conf(config):
+def dnsmasq_config(config, interface):
+def add_node(node, ipaddr):
 def dnsmasq_resolv_conf(config):
 def dnsmasq_test():
 ```
@@ -93,7 +95,7 @@ def systemd_enable(service):
 def cmd_exists(cmd):
 def get_network_interface():
 def list_containers_registry(familly):
-def change_var(conffile, var_to_change, var_value):
+def change_var(conffile, var_to_change, var_value, equal="="):
 def esc(color):
 def print_error(text):
 def print_warning(text):
@@ -108,19 +110,23 @@ def validate_yaml_file(file_path):
 def backup_file(file):
 def check_iam_root():
 def find_ext_file(ext):
+def extract_subnet_range(config):
+def get_ip_address(interface):
+def create_if_not_exist(file):
 ```
 [ww4.py](src/autoww4/ww4.py)
 ```
 def ww4_start():
 def ww4_restart():
 def ww4_enable():
-def import_container(container):
+def import_container(familly, product):
 def ww4_nodes_conf(config):
 def ww4_warewulf_conf(config):
 def add_node(node, ipaddr):
 def containers_available():
 def prepare_container(container):
 def container_set_default(container, node):
+def create_nodes_list():
 ```
 
 [containers.py](src/autoww4/containers.py)
