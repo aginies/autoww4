@@ -27,6 +27,8 @@ conffile_locations = [
     '/etc',
 ]
 
+nodename = "slenode"
+maxnode = 3
 wwctl = "/usr/bin/wwctl"
 dnsmasq_config_file = "/etc/dnsmasq.conf"
 dnsmasq = "/usr/sbin/dnsmasq"

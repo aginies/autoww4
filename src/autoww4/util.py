@@ -23,6 +23,7 @@ import shutil
 import datetime
 import psutil
 import yaml
+import re
 import autoww4.containers as containers
 
 def run_command(cmd):
@@ -260,3 +261,21 @@ def find_ext_file(ext):
         if files.endswith(ext):
             files_list.append(files)
     return files_list
+
+
+def extract_subnet_range(config):
+    """
+    return all subnet available
+    """
+    subnet_pattern = re.compile(r'subnet\s+([\d.]+)\s+netmask\s+([\d.]+)\s*{([^}]*)}', re.MULTILINE)
+    range_pattern = re.compile(r'range\s+([\d.]+)\s+([\d.]+);')
+    subnet_ranges = []
+
+    with open(config, 'r') as dhcpd_conf:
+        contents = dhcpd_conf.read()
+        for subnet_match in subnet_pattern.finditer(contents):
+            subnet_info = subnet_match.group(1, 2)
+            for range_match in range_pattern.finditer(subnet_match.group(3)):
+                subnet_ranges.append((subnet_info, range_match.group(1, 2)))
+
+    return subnet_ranges

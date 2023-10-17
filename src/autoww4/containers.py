@@ -21,10 +21,7 @@ list_familly = ["opensuse", "ubuntu"]
 
 opensuse_base_url = "docker://registry.opensuse.org/science/warewulf/"
 opensuse_list = [
-    "leap15.3",
     "leap15.4",
-    "leap15.5",
-    "leap15.6",
     "tumbleweed",
 ]
 
