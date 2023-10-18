@@ -170,7 +170,7 @@ def print_warning(text):
     Print warning in red
     """
     prefix = esc('bg_yellow') + ' WARNING ' + esc('reset') + " "
-    formated_text = "\n     "+prefix+esc('red') +text.upper()+esc('reset')+"\n"
+    formated_text = "     "+prefix+esc('red') +text.upper()+esc('reset')
     print(formated_text)
 
 def print_ok(text):

@@ -79,9 +79,33 @@ def add_node(node, ipaddr):
     """
     add node
     """
-    util.print_info(f"Adding {node} {ipaddr}")
-    util.run_command_with_except(conf.wwctl +" node add "+node+" -I "+ipaddr)
-    util.run_command(conf.wwctl +"node list")
+    nodes_list = get_nodes_list()
+    if node not in nodes_list:
+        util.print_info(f"Adding {node} {ipaddr}")
+        util.run_command_with_except(conf.wwctl +" node add "+node+" -I "+ipaddr)
+        util.run_command(conf.wwctl +"node list")
+    else:
+        util.print_warning(f"{node} already in ww4 config")
+
+def get_nodes_list():
+    """
+    get the node list
+    """
+    command = conf.wwctl+" node list"
+    try:
+        output_bytes = subprocess.check_output(command, shell=True)
+        output_str = output_bytes.decode('utf-8')
+        lines = output_str.split('\n')
+
+        nodes_names = [line.split()[0] for line in lines if line.strip() and line.split()]
+        nodes_list = nodes_names[1:]
+        if nodes_list:
+            pass
+        else:
+            nodes_list = ["EMPTY"]
+        return nodes_list
+    except subprocess.CalledProcessError as err:
+        print(f"Error: {err.returncode}\n{err.output}")
 
 def containers_available():
     """

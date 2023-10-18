@@ -62,7 +62,7 @@ def add_node(node, ipaddr):
     """
     add node in dnsmasq hosts conf
     """
-    util.print_info(f"host {conf.dnsmasq_hosts}")
+    #util.print_info(f"host {conf.dnsmasq_hosts}")
     ip_exist = False
     with open(conf.dnsmasq_hosts, 'r') as file:
         for line in file:
