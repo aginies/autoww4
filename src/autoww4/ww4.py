@@ -95,10 +95,12 @@ def containers_available():
 
         container_names = [line.split()[0] for line in lines if line.strip() and line.split()]
         container_list = container_names[1:]
-        util.print_info(f"Container(s) imported:")
-        for name in container_list:
-            print(name)
-
+        if container_list:
+            util.print_info(f"Container(s) imported:")
+            for name in container_list:
+                print(name)
+        else:
+            container_list = ["EMPTY"]
         return container_list
 
     except subprocess.CalledProcessError as err:
@@ -127,7 +129,7 @@ def create_nodes_list():
     # create the node config with nodemane and IP
     subnet_ranges = util.extract_subnet_range(conf.dhcpd_config_file)
     for _, range_i in subnet_ranges:
-        number = 0
+        number = 1
         parts_range_ip = range_i[0].split(".")[:3]
         range_ip = ".".join(parts_range_ip)
         last_number_ip = range_i[0].split(".")[-1]
