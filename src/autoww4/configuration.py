@@ -33,8 +33,8 @@ nodename = "slenode"
 maxnode = 3
 
 dnsmasq_config_file = "/etc/dnsmasq.conf"
-dnsmasq_hosts = "/etc/dnsmasq.d/dnsmasq-hosts.conf"
-dnsmasq_resolv = "/etc/dnsmasq.d/dnsmasq-resolv.conf"
+dnsmasq_hosts = "/etc/dnsmasq-hosts.conf"
+dnsmasq_resolv = "/etc/dnsmasq-resolv.conf"
 dnsmasq = "/usr/sbin/dnsmasq"
 dnsmasq_domain = "sle.lan"
 
