@@ -52,6 +52,9 @@ def find_file_dir(name, what):
 def check_conffile(conf):
 def find_conffile():
 ```
+[containers.py](src/autoww4/containers.py)
+```
+```
 [dhcpd.py](src/autoww4/dhcpd.py)
 ```
 def dhcpd_interface(interface):
@@ -123,6 +126,7 @@ def import_container(familly, product):
 def ww4_nodes_conf(config):
 def ww4_warewulf_conf(config):
 def add_node(node, ipaddr):
+def get_nodes_list():
 def containers_available():
 def prepare_container(container):
 def container_set_default(container, node):
