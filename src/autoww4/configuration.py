@@ -18,6 +18,7 @@ configuration
 """
 
 import os
+import yaml
 import autoww4.util as util
 
 conffile_locations = [
@@ -26,26 +27,6 @@ conffile_locations = [
     '/etc/autoww4',
     '/etc',
 ]
-
-# should be in atuoww4.yaml file later
-interface = "eth0"
-nodename = "slenode"
-maxnode = 3
-
-dnsmasq_config_file = "/etc/dnsmasq.conf"
-dnsmasq_hosts = "/etc/dnsmasq-hosts.conf"
-dnsmasq_resolv = "/etc/dnsmasq-resolv.conf"
-dnsmasq = "/usr/sbin/dnsmasq"
-dnsmasq_domain = "sle.lan"
-
-wwctl = "/usr/bin/wwctl"
-ww4_config_file = "/etc/warewulf/warewulf.conf"
-ww4_nodes_file = "/etc/warewulf/nodes.conf"
-
-tftp_config_file = "/etc/sysconfig/tftp"
-
-dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
-dhcpd_config_file = '/etc/dhcpd.conf'
 
 conffile_name = 'autoww4.yaml'
 
@@ -81,6 +62,9 @@ def check_conffile(conf):
     return True
 
 def find_conffile():
+    """
+    find the conf file
+    """
     global conffile_name
     return find_file_dir(conffile_name, "file")
 
@@ -88,6 +72,75 @@ class Configuration():
     """
     all stuff relative to configuration
     """
-    conffile = find_conffile()
     util.check_iam_root()
+    conffile = find_conffile()
 
+    dataprompt = {
+        'nodename': None,
+        'dnsmasq_domain': None,
+        'conf': conffile,
+        'nbnode': None,
+        'interface': None,
+        }
+
+    find_interface = util.get_network_interface()
+    interface = find_interface[0]
+    nodename = "slenode"
+    nbnode = 3
+    authoritative = "not"
+    on_off_options = ['on', 'off']
+
+    dnsmasq_config_file = "/etc/dnsmasq.conf"
+    dnsmasq_hosts = "/etc/dnsmasq-hosts.conf"
+    dnsmasq_resolv = "/etc/dnsmasq-resolv.conf"
+    dnsmasq = "/usr/sbin/dnsmasq"
+    dnsmasq_domain = "sle.lan"
+
+    wwctl = "/usr/bin/wwctl"
+    ww4_config_file = "/etc/warewulf/warewulf.conf"
+    ww4_nodes_file = "/etc/warewulf/nodes.conf"
+
+    tftp_config_file = "/etc/sysconfig/tftp"
+    dhcpd_config_file = '/etc/dhcpd.conf'
+    dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
+
+    conffile_name = 'autoww4.yaml'
+
+    def __init__(self):
+        """
+        init some var
+        """
+
+    def basic_config(self):
+        """
+        basic config load
+        """
+        # Using autoww4.yaml to file some VAR
+        with open(self.conf.conffile) as file:
+            config = yaml.full_load(file)
+            # parse all section of the yaml file
+            for item, value in config.items():
+                # check mathing section
+                if item == "general":
+                    for dall in value:
+                        for datai, valuei in dall.items():
+                            #print(valuei)
+                            if datai == 'interface':
+                                config = {'interface': valuei}
+                                self.conf.dataprompt.update({'interface': config['interface']})
+                            elif datai == 'nodename':
+                                config = {'nodename': valuei}
+                                self.conf.dataprompt.update({'nodename': config['nodename']})
+                            elif datai == 'nbnode':
+                                config = {'nbnode': valuei}
+                                self.conf.dataprompt.update({'nbnode': config['nbnode']})
+                            else:
+                                util.print_error("Unknow parameter in general section: {}".format(datai))
+                if item == "dnsmasq":
+                    for dall in value:
+                        for datai, valuei in dall.items():
+                            if datai == 'dnsmasq_domain':
+                                config = {'dnsmasq_domain': valuei}
+                                self.conf.dataprompt.update({'dnsmasq_domain': config['dnsmasq_domain']})
+                            #else:
+                            #    util.print_error("Unknow parameter in dnsmasq section: {}".format(datai))

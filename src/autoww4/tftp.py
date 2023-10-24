@@ -23,19 +23,23 @@ import autoww4.configuration as conf
 ######
 # ####
 
-def tftp_directory(directory):
+class Tftp():
     """
-    change the directory
+    manage tftp conf
     """
-    util.print_info("Setting TFTP_DIRECTORY to "+ directory)
-    util.change_var(conf.tftp_config_file, "TFTP_DIRECTORY", str(directory))
+    def tftp_directory(self, directory):
+        """
+        change the directory
+        """
+        util.print_info("Setting TFTP_DIRECTORY to "+ directory)
+        util.change_var(self.tftp_config_file, "TFTP_DIRECTORY", str(directory))
 
-def tftp_option(options):
-    """
-    change tftp options
-    """
-    util.print_info("Setting TFTP_OPTIONS to "+options)
-    util.change_var(conf.tftp_config_file, "TFTP_OPTIONS", str(options))
+    def tftp_option(self, options):
+        """
+        change tftp options
+        """
+        util.print_info("Setting TFTP_OPTIONS to "+options)
+        util.change_var(self.tftp_config_file, "TFTP_OPTIONS", str(options))
 
 def tftp_enable():
     """

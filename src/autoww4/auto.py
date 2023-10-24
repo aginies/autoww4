@@ -22,34 +22,43 @@ import autoww4.tftp as tftp
 import autoww4.dnsmasq as dnsmasq
 import autoww4.ww4 as ww4
 import autoww4.util as util
-import autoww4.configuration as conf
 
-def doall():
+class Automatic():
     """
-    do everything automatically
+    do all stuff!
     """
-    # dhcp part
-    util.backup_file(conf.dhcpd_config_file)
-    dhcpd.dhcpd_interface("eth0")
-    dhcpd.set_authoritative("no")
-    # tftp
-    tftp.tftp_enable()
-    tftp.tftp_restart()
-    # dnsmasq
-    util.backup_file(conf.dnsmasq_config_file)
-    dnsmasq.enable_dnsmasq()
-    dnsmasq.dnsmasq_config(conf.dnsmasq_config_file, conf.interface)
-    dnsmasq.dnsmasq_resolv_conf(conf.dnsmasq_resolv)
-    dnsmasq.restart_dnsmasq()
-    # ww4
-    util.backup_file(conf.ww4_config_file)
-    ww4.ww4_warewulf_conf(conf.ww4_config_file)
-    util.backup_file(conf.ww4_nodes_file)
-    ww4.ww4_nodes_conf(conf.ww4_nodes_file)
-    ww4.ww4_enable()
-    ww4.ww4_restart()
-    ww4.create_nodes_list()
-    dnsmasq.dnsmasq_test()
-    ww4.import_container("opensuse", "leap-15.4")
-    ww4.prepare_container("leap-15.4")
-    ww4.container_set_default("leap-15.4", conf.nodename+"[1-"+str(conf.maxnode)+"]")
+
+    def __init__():
+        """
+        init some stuff
+        """
+
+    def do_all(self):
+        """
+        do everything automatically
+        """
+        # dhcp part
+        util.backup_file(self.dhcpd_config_file)
+        dhcpd.Dhcpd.dhcpd_interface(self, "eth1")
+        dhcpd.Dhcpd.set_authoritative(self, "no")
+        # tftp
+        tftp.tftp_enable()
+        tftp.tftp_restart()
+        # dnsmasq
+        util.backup_file(self.dnsmasq_config_file)
+        dnsmasq.enable_dnsmasq()
+        dnsmasq.Dnsmasq.dnsmasq_config(self, self.dnsmasq_config_file, self.interface)
+        dnsmasq.Dnsmasq.dnsmasq_resolv_conf(self, self.dnsmasq_resolv)
+        dnsmasq.restart_dnsmasq()
+        # ww4
+        util.backup_file(self.ww4_config_file)
+        ww4.Ww4.ww4_warewulf_conf(self, self.ww4_config_file)
+        util.backup_file(self.ww4_nodes_file)
+        ww4.Ww4.ww4_nodes_conf(self, self.ww4_nodes_file)
+        ww4.ww4_enable()
+        ww4.ww4_restart()
+        ww4.Ww4.create_nodes_list(self)
+        dnsmasq.Dnsmasq.dnsmasq_test(self)
+        ww4.Ww4.import_container(self, "opensuse", "leap-15.4")
+        ww4.Ww4.prepare_container(self, "leap-15.4")
+        ww4.Ww4.container_set_default(self, "leap-15.4", self.nodename+"[1-"+str(self.nbnode)+"]")

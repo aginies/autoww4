@@ -41,51 +41,58 @@ def enable_dnsmasq():
     util.print_info("Enabling dnsmasq")
     util.systemd_enable("dnsmasq")
 
-def dnsmasq_config(config, interface):
+class Dnsmasq():
     """
-    configure dnsmasq
+    manage dnsmasq config
     """
-    # do backup
-    # various config
-    util.print_info(f"dnsmasq {config}")
-    util.backup_file(config)
-    ipaddr = util.get_ip_address(interface)
-    util.change_var(config, "interface", interface)
-    util.change_var(config, "address", "/"+conf.dnsmasq_domain+"/127.0.0.1")
-    util.change_var(config, "address", "/"+conf.dnsmasq_domain+"/"+ipaddr)
-    util.change_var(config, "resolv-file", conf.dnsmasq_resolv)
-    util.change_var(config, "addn-hosts", conf.dnsmasq_hosts)
-    util.change_var(config, "server", ipaddr)
-    util.change_var(config, "domain", conf.dnsmasq_domain)
 
-def add_node(node, ipaddr):
-    """
-    add node in dnsmasq hosts conf
-    """
-    #util.print_info(f"host {conf.dnsmasq_hosts}")
-    ip_exist = False
-    with open(conf.dnsmasq_hosts, 'r') as file:
-        for line in file:
-            if ipaddr in line:
-                ip_exist = True
-                break
-    
-    # no ip previously see in the config file
-    if not ip_exist:
-        with open(conf.dnsmasq_hosts, "a") as file:
-            file.write(ipaddr+" "+node+"\n")
+    def dnsmasq_config(self, config, interface):
+        """
+        configure dnsmasq
+        """
+        # do backup
+        # various config
+        util.print_info(f"dnsmasq {config}")
+        util.create_if_not_exist(config)
+        util.backup_file(config)
+        ipaddr = util.get_ip_address(interface)
+        util.change_var(config, "interface", interface)
+        util.change_var(config, "address", "/"+self.dnsmasq_domain+"/127.0.0.1")
+        util.change_var(config, "address", "/"+self.dnsmasq_domain+"/"+ipaddr)
+        util.change_var(config, "resolv-file", self.dnsmasq_resolv)
+        util.create_if_not_exist(self.dnsmasq_hosts)
+        util.change_var(config, "addn-hosts", self.dnsmasq_hosts)
+        util.change_var(config, "server", ipaddr)
+        util.change_var(config, "domain", self.dnsmasq_domain)
 
-def dnsmasq_resolv_conf(config):
-    """
-    dnsmasq resolv config
-    """
-    util.create_if_not_exist(config)
-    util.print_info(f"resolv {config}")
-    util.change_var(conf.dnsmasq_resolv, "nameserver", "127.0.0.1", " ")
+    def add_node(self, node, ipaddr):
+        """
+        add node in dnsmasq hosts conf
+        """
+        #util.print_info(f"host {conf.dnsmasq_hosts}")
+        ip_exist = False
+        with open(self.dnsmasq_hosts, 'r') as file:
+            for line in file:
+                if ipaddr in line:
+                    ip_exist = True
+                    break
 
-def dnsmasq_test():
-    """
-    check conf is ok
-    """
-    util.print_info("Testing dnsmasq configuration")
-    util.run_command_with_except(conf.dnsmasq+" --test")
+        # no ip previously see in the config file
+        if not ip_exist:
+            with open(self.dnsmasq_hosts, "a") as file:
+                file.write(ipaddr+" "+node+"\n")
+
+    def dnsmasq_resolv_conf(self, config):
+        """
+        dnsmasq resolv config
+        """
+        util.create_if_not_exist(config)
+        util.print_info(f"resolv {config}")
+        util.change_var(self.dnsmasq_resolv, "nameserver", "127.0.0.1", " ")
+
+    def dnsmasq_test(self):
+        """
+        check conf is ok
+        """
+        util.print_info("Testing dnsmasq configuration")
+        util.run_command_with_except(self.dnsmasq+" --test")

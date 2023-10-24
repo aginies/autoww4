@@ -6,9 +6,9 @@ ww4:
   - ww4_nodes_file: "/etc/warewulf/nodes.conf"
 
 general:
-  - interface: "eth0"
+  #  - interface: "eth0"
   - nodename: "slenode"
-  - maxnode: 3
+  - nbnode: 3
 
 dnsmasq:
   - dnsmasq_config_file: "/etc/dnsmasq.conf"
@@ -23,3 +23,4 @@ tftp:
 dhcpd:
   - dhcpd_sysconfig_file: "/etc/sysconfig/dhcpd"
   - dhcpd_config_file: '/etc/dhcpd.conf'
+  - authoritative: 'no'

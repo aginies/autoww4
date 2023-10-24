@@ -21,12 +21,12 @@ import subprocess
 import os
 import shutil
 import datetime
-import psutil
-import yaml
 import re
 import socket
 import fcntl
 import struct
+import yaml
+import psutil
 import autoww4.containers as containers
 
 def run_command(cmd):
@@ -49,6 +49,7 @@ def run_command_with_except(cmd):
         stdout = result.stdout
         stderr = result.stderr
         return stdout, stderr
+        print("\n")
     except subprocess.CalledProcessError as err:
         print(f"Command:\n'{cmd}'\n failed with exit code {err.returncode}:")
         print(err.stderr)
@@ -294,6 +295,9 @@ def extract_subnet_range(config):
 
 
 def get_ip_address(interface):
+    """
+    get the i paddress of an interface
+    """
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         ip_address = socket.inet_ntoa(fcntl.ioctl(
@@ -306,15 +310,15 @@ def get_ip_address(interface):
     except Exception as err:
         return str(err)
 
-def create_if_not_exist(file):
+def create_if_not_exist(afile):
     """
     create a file if it doesnt exist
     """
-    if os.path.isfile(file):
+    if os.path.isfile(afile):
         pass
     else:
         try:
-            with open(file, "w") as file:
+            with open(afile, "w") as file:
                 pass
         except FileNotFoundError:
             print(f"File '{file}' not found.")
