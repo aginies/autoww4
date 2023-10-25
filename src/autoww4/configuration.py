@@ -87,7 +87,7 @@ class Configuration():
     interface = find_interface[0]
     nodename = "slenode"
     nbnode = 3
-    authoritative = "not"
+    authoritative = "off"
     on_off_options = ['on', 'off']
 
     dnsmasq_config_file = "/etc/dnsmasq.conf"
@@ -144,3 +144,27 @@ class Configuration():
                                 self.conf.dataprompt.update({'dnsmasq_domain': config['dnsmasq_domain']})
                             #else:
                             #    util.print_error("Unknow parameter in dnsmasq section: {}".format(datai))
+
+    def check_user_settings(self):
+        """
+        Check if the user as set some stuff, if yes use it
+        """
+        interface = self.dataprompt.get('interface')
+        if interface != None:
+            self.interface = interface
+
+        nodename = self.dataprompt.get('nodename')
+        if nodename != None:
+            self.nodename = nodename
+
+        nbnode = self.dataprompt.get('nbnode')
+        if nbnode != None:
+            self.nbnode = nbnode
+
+        dnsmasq_domain = self.dataprompt.get('dnsmasq_domain')
+        if dnsmasq_domain != None:
+            self.dnsmasq_domain = dnsmasq_domain
+
+        authoritative = self.dataprompt.get('authoritative')
+        if authoritative != None:
+            self.authoritative = authoritative

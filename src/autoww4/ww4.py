@@ -162,7 +162,6 @@ class Ww4():
         util.print_info("Create the ww4 node list")
         for _, range_i in subnet_ranges:
             number = 1
-            print(number)
             parts_range_ip = range_i[0].split(".")[:3]
             range_ip = ".".join(parts_range_ip)
             last_number_ip = range_i[0].split(".")[-1]
@@ -170,7 +169,6 @@ class Ww4():
                 lastip = int(last_number_ip)+number
                 ipaddr = range_ip+"."+str(lastip)
                 nname = self.nodename+str(number)
-                print(number)
                 Ww4.add_node(self, nname, ipaddr)
                 dnsmasq.Dnsmasq.d_add_node(self, nname, ipaddr)
                 number += 1

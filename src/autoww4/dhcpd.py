@@ -51,16 +51,14 @@ class Dhcpd():
         with open(self.dhcpd_config_file, 'r') as file:
             dhcpd_conf = file.read()
 
-        #print("HERE")
-
-        if value == "no":
+        if value == "off":
             if 'not authoritative;' not in dhcpd_conf:
                 if 'authoritative' in dhcpd_conf:
                     dhcpd_conf = dhcpd_conf.replace('authoritative;', 'not authoritative;')
                 else:
                     dhcpd_conf += '\nnot authoritative;\n'
                 util.print_info("Setting dhcpd to not authoritative")
-        elif value == "yes":
+        elif value == "on":
             if 'authoritative;' not in dhcpd_conf:
                 if 'not authoritative' in dhcpd_conf:
                     dhcpd_conf = dhcpd_conf.replace('not authoritative;', 'authoritative;')

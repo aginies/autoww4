@@ -56,6 +56,7 @@ class Dnsmasq():
         util.create_if_not_exist(config)
         util.backup_file(config)
         ipaddr = util.get_ip_address(interface)
+        print(ipaddr)
         util.change_var(config, "interface", interface)
         util.change_var(config, "address", "/"+self.dnsmasq_domain+"/127.0.0.1")
         util.change_var(config, "address", "/"+self.dnsmasq_domain+"/"+ipaddr)
