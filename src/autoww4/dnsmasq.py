@@ -65,11 +65,11 @@ class Dnsmasq():
         util.change_var(config, "server", ipaddr)
         util.change_var(config, "domain", self.dnsmasq_domain)
 
-    def add_node(self, node, ipaddr):
+    def d_add_node(self, node, ipaddr):
         """
         add node in dnsmasq hosts conf
         """
-        #util.print_info(f"host {conf.dnsmasq_hosts}")
+        #util.print_info(f"host {self.dnsmasq_hosts}")
         ip_exist = False
         with open(self.dnsmasq_hosts, 'r') as file:
             for line in file:

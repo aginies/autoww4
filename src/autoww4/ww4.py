@@ -85,10 +85,11 @@ class Ww4():
         add node
         """
         nodes_list = Ww4.get_nodes_list(self)
+        #print(nodes_list)
         if node not in nodes_list:
             util.print_info(f"Adding {node} {ipaddr}")
             util.run_command_with_except(self.wwctl +" node add "+node+" -I "+ipaddr)
-            util.run_command(self.wwctl +"node list")
+            #util.run_command(self.wwctl +"node list")
         else:
             util.print_warning(f"{node} already in ww4 config")
 
@@ -101,9 +102,8 @@ class Ww4():
             output_bytes = subprocess.check_output(command, shell=True)
             output_str = output_bytes.decode('utf-8')
             lines = output_str.split('\n')
-
             nodes_names = [line.split()[0] for line in lines if line.strip() and line.split()]
-            nodes_list = nodes_names[1:]
+            nodes_list = nodes_names[2:]
             if nodes_list:
                 pass
             else:
@@ -158,8 +158,11 @@ class Ww4():
         """
         # create the node config with nodemane and IP
         subnet_ranges = util.extract_subnet_range(self.dhcpd_config_file)
+        #print(subnet_ranges)
+        util.print_info("Create the ww4 node list")
         for _, range_i in subnet_ranges:
             number = 1
+            print(number)
             parts_range_ip = range_i[0].split(".")[:3]
             range_ip = ".".join(parts_range_ip)
             last_number_ip = range_i[0].split(".")[-1]
@@ -167,6 +170,7 @@ class Ww4():
                 lastip = int(last_number_ip)+number
                 ipaddr = range_ip+"."+str(lastip)
                 nname = self.nodename+str(number)
+                print(number)
                 Ww4.add_node(self, nname, ipaddr)
-                dnsmasq.Dnsmasq.add_node(self, nname, ipaddr)
+                dnsmasq.Dnsmasq.d_add_node(self, nname, ipaddr)
                 number += 1
