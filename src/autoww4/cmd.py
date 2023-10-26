@@ -66,7 +66,6 @@ class Interactive(Cmd):
         lines.append("\n Source code: https://github.com/aginies/autoww4\n")
         lines.append(" Report bug: https://github.com/aginies/autoww4/issues\n")
 
-
         #self.conf.dataprompt.update({'nodename': self.conf.dataprompt['nodename']})
 
         line1 = ""
@@ -86,7 +85,7 @@ class Interactive(Cmd):
         update prompt with value set by user
         """
         options = [('Network Interface', 'interface'),
-                   ('authoritative', 'authoritative'),
+                   ('dhcpd authoritative', 'authoritative'),
                    ('Node Name', 'nodename'),
                    ('Number Node(s)', 'nbnode'),
                    ('dnsmasq domain', 'dnsmasq_domain'),
@@ -140,8 +139,11 @@ class Interactive(Cmd):
         else:
             if args == "on":
                 dhcpd.Dhcpd.set_authoritative(self.conf, "on")
+                self.conf.dataprompt.update({'authoritative': "on"})
             else:
                 dhcpd.Dhcpd.set_authoritative(self.conf, "off")
+                self.conf.dataprompt.update({'authoritative': "off"})
+            self.update_prompt()
 
     def do_nodemane(self, args):
         """

@@ -146,6 +146,12 @@ class Configuration():
                                 self.conf.dataprompt.update({'dnsmasq_domain': config['dnsmasq_domain']})
                             #else:
                             #    util.print_error("Unknow parameter in dnsmasq section: {}".format(datai))
+                if item == "dhcpd":
+                    for dall in value:
+                        for datai, valuei in dall.items():
+                            if datai == 'authoritative':
+                                config = {'authoritative': valuei}
+                                self.conf.dataprompt.update({'authoritative': config['authoritative']})
 
     def check_user_settings(self):
         """

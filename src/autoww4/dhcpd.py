@@ -68,5 +68,3 @@ class Dhcpd():
 
         with open(self.dhcpd_config_file, 'w') as file:
             file.write(dhcpd_conf)
-
-        file.close()
