@@ -18,7 +18,6 @@ tftp config
 """
 
 import autoww4.util as util
-import autoww4.configuration as conf
 
 ######
 # ####

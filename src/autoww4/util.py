@@ -93,11 +93,15 @@ def list_containers_registry(familly):
     list all containers available
     """
     if familly == "opensuse":
-        for plist in containers.opensuse_list:
-            print(containers.opensuse_base_url+plist+"/containers/kernel:latest")
+        for plist in containers.OPENSUSE_LIST:
+            #print(containers.OPENSUSE_BASE_URL+plist+"/containers/kernel:latest")
+            print(plist)
+        return containers.OPENSUSE_LIST
     elif familly == "ubuntu":
-        for plist in containers.ubuntu_list:
-            print(containers.ubuntu_base_url+plist+"/containers/kernel:latest")
+        for plist in containers.UBUNTU_LIST:
+            #print(containers.UBUNTU_BASE_URL+plist+"/containers/kernel:latest")
+            print(plist)
+        return containers.UBUNTU_LIST
 
 def change_var(conffile, var_to_change, var_value, equal="="):
     """
@@ -247,10 +251,10 @@ def backup_file(file):
     do a backup of the file with a timestamp
     """
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
-    backup_file = f"{file}.{timestamp}.bck"
+    bck_file = f"{file}.{timestamp}.bck"
     try:
         shutil.copy(file, backup_file)
-        print_info(f"Backup {file} to {backup_file}")
+        print_info(f"Backup {file} to {bck_file}")
     except FileNotFoundError:
         print(f"Error: {file} not found")
     except Exception as err:

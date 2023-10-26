@@ -17,9 +17,7 @@
 dhcpd config
 """
 
-#import configparser
 import autoww4.util as util
-import autoww4.configuration as configuration
 
 ######
 # ####
@@ -37,7 +35,7 @@ class Dhcpd():
         """
         change the interface
         """
-        util.print_info("Setting DHCPD_INTERFACE to "+str(interface))
+        util.print_data("Setting DHCPD_INTERFACE to ", str(interface))
         util.change_var(self.dhcpd_sysconfig_file, "DHCPD_INTERFACE", str(interface))
 
     def set_authoritative(self, value):
@@ -57,14 +55,14 @@ class Dhcpd():
                     dhcpd_conf = dhcpd_conf.replace('authoritative;', 'not authoritative;')
                 else:
                     dhcpd_conf += '\nnot authoritative;\n'
-                util.print_info("Setting dhcpd to not authoritative")
+                util.print_data("Setting dhcpd to:", "not authoritative")
         elif value == "on":
             if 'authoritative;' not in dhcpd_conf:
                 if 'not authoritative' in dhcpd_conf:
                     dhcpd_conf = dhcpd_conf.replace('not authoritative;', 'authoritative;')
                 else:
                     dhcpd_conf += '\nauthoritative;\n'
-                util.print_info("Setting dhcpd to authoritative")
+                util.print_data("Setting dhcpd to:", "authoritative")
         else:
             util.print_error("Whats the hell?")
 

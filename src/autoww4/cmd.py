@@ -50,17 +50,18 @@ class Interactive(Cmd):
         self.prompt = 'autoww4 > '
         lines = []
         lines.append("\n"+util.esc('green') +" autoww4 "+util.esc('reset'))
-        lines.append("Interactive Terminal\n\n")
+        lines.append("Interactive Terminal\n")
         lines.append("\n Available parameters:\n")
         lines.append(util.esc('blue')+" conf"+util.esc('reset')+": configuration file to use\n")
-
         lines.append(util.esc('blue')+" interface"+util.esc('reset')+": interface to use for dhcpd\n")
         lines.append(util.esc('blue')+" authoritative"+util.esc('reset')+": Set DHCPD server as authoritative or not\n")
         lines.append(util.esc('blue')+" nbnode"+util.esc('reset')+": how many nodes to prepare\n")
         lines.append(util.esc('blue')+" nodename"+util.esc('reset')+": node name (alphanumeric)\n")
         lines.append(util.esc('blue')+" dnsmasq_domain"+util.esc('reset')+": domain name for dnsmasq\n")
+        lines.append("\n Container parameters:\n")
         lines.append(util.esc('blue')+" list_containers_registry"+util.esc('reset')+": list containers registry available\n")
         lines.append(util.esc('blue')+" available_containers"+util.esc('reset')+": containers already available on the system\n")
+        lines.append(util.esc('blue')+" container"+util.esc('reset')+": container to use for deployment\n")
 
         #self.conf.dataprompt.update({'nodename': self.conf.dataprompt['nodename']})
 
@@ -84,6 +85,7 @@ class Interactive(Cmd):
                    ('Number Node(s)', 'nbnode'),
                    ('dnsmasq domain', 'dnsmasq_domain'),
                    ('Main Configuration', 'conf'),
+                   ('Container', 'container'),
                   ]
 
         lines = []
@@ -112,7 +114,7 @@ class Interactive(Cmd):
             self.update_prompt()
             dhcpd.Dhcpd.dhcpd_interface(self.conf, args)
 
-    def complete_do_interface(self, text, _line, _begidx, _endidx):
+    def complete_interface(self, text, _line, _begidx, _endidx):
         """
         Auto completion interface
         """
@@ -186,9 +188,9 @@ class Interactive(Cmd):
         """
         List all containers registry
         """
-        if args not in containers.list_familly:
+        if args not in containers.LIST_FAMILLY:
             util.print_error("Please select a correct familly:")
-            print(str(containers.list_familly))
+            print(str(containers.LIST_FAMILLY))
         else:
             util.list_containers_registry(args)
 
@@ -196,7 +198,7 @@ class Interactive(Cmd):
         """
         Auto complete familly for containers
         """
-        list_f = containers.list_familly
+        list_f = containers.LIST_FAMILLY
         if not text:
             completions = list_f[:]
         else:
@@ -208,6 +210,30 @@ class Interactive(Cmd):
         List containers installed
         """
         ww4.Ww4.containers_available(self.conf)
+
+    def do_container(self, args):
+        """
+        Select the container to use
+        locked to opensuse for now
+        """
+        l_c_r = util.list_containers_registry("opensuse")
+        if args not in l_c_r:
+            util.print_error("Please select a container in registry")
+        else:
+            config = {'container': args,}
+            self.conf.dataprompt.update({'container': config['container']})
+            self.update_prompt()
+
+    def complete_container(self, text, _line, _begidx, _endidx):
+        """
+        Auto complete container name
+        """
+        list_c = util.list_containers_registry("opensuse")
+        if not text:
+            completions = list_c[:]
+        else:
+            completions = [f for f in list_c if f.startswith(text)]
+        return completions
 
     def do_test(self, _args):
         """

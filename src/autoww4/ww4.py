@@ -19,7 +19,6 @@ ww4 config
 
 import subprocess
 import autoww4.util as util
-import autoww4.configuration as conf
 import autoww4.containers as containers
 import autoww4.dnsmasq as dnsmasq
 
@@ -60,11 +59,11 @@ class Ww4():
                 util.print_error(f"{familly} {product} already imported")
             else:
                 if familly == "opensuse":
-                    for plist in containers.opensuse_list:
+                    for plist in containers.OPENSUSE_LIST:
                         if plist == product:
-                            container = containers.opensuse_base_url+plist+"/containers/kernel:latest"
+                            container = containers.OPENSUSE_BASE_URL+plist+"/containers/kernel:latest"
                             cmd = self.wwctl+" container import "+container+" "+product
-                            print(cmd)
+                            util.print_command(cmd)
                             util.run_command_with_except(cmd)
 
     def ww4_nodes_conf(self, config):
@@ -87,7 +86,7 @@ class Ww4():
         nodes_list = Ww4.get_nodes_list(self)
         #print(nodes_list)
         if node not in nodes_list:
-            util.print_info(f"Adding {node} {ipaddr}")
+            util.print_data("Adding:", f"{node} {ipaddr}")
             util.run_command_with_except(self.wwctl +" node add "+node+" -I "+ipaddr)
             #util.run_command(self.wwctl +"node list")
         else:

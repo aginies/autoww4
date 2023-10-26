@@ -29,7 +29,7 @@ class Automatic():
     do all stuff!
     """
 
-    def __init__():
+    def __init__(self):
         """
         init some stuff
         """
@@ -44,7 +44,6 @@ class Automatic():
         util.backup_file(self.dhcpd_config_file)
         # dhcp part
         dhcpd.Dhcpd.dhcpd_interface(self, self.interface)
-        print(self.authoritative)
         dhcpd.Dhcpd.set_authoritative(self, self.authoritative)
         # tftp
         tftp.tftp_enable()

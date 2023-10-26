@@ -17,18 +17,18 @@
 containers registry
 """
 
-list_familly = ["opensuse", "ubuntu"]
+LIST_FAMILLY = ["opensuse", "ubuntu"]
 
-opensuse_base_url = "docker://registry.opensuse.org/science/warewulf/"
-opensuse_list = [
+OPENSUSE_BASE_URL = "docker://registry.opensuse.org/science/warewulf/"
+OPENSUSE_LIST = [
     "leap-15.3",
     "leap-15.4",
     "leap-15.5",
     "tumbleweed",
 ]
 
-ubuntu_base_url = "docker://registry.ubuntu.org/"
-ubuntu_list = [
+UBUNTU_BASE_URL = "docker://registry.ubuntu.org/"
+UBUNTU_LIST = [
     "20.4",
     "22.4",
     "23.4",

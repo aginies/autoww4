@@ -21,23 +21,23 @@ import os
 import yaml
 import autoww4.util as util
 
-conffile_locations = [
+CONFFILE_LOCATIONS = [
     '.',
     '~/.local/autoww4',
     '/etc/autoww4',
     '/etc',
 ]
 
-conffile_name = 'autoww4.yaml'
+CONFFILE_NAME = 'autoww4.yaml'
 
 def find_file_dir(name, what):
     """
     find file
     """
-    global conffile_locations
-    conffile = "{}/{}".format(conffile_locations[0], name)
+    global CONFFILE_LOCATIONS
+    conffile = "{}/{}".format(CONFFILE_LOCATIONS[0], name)
 
-    for path in conffile_locations:
+    for path in CONFFILE_LOCATIONS:
         path = os.path.expanduser(path)
         tofind = "{}/{}".format(path, name)
         if what == "file":
@@ -65,8 +65,8 @@ def find_conffile():
     """
     find the conf file
     """
-    global conffile_name
-    return find_file_dir(conffile_name, "file")
+    global CONFFILE_NAME
+    return find_file_dir(CONFFILE_NAME, "file")
 
 class Configuration():
     """
@@ -81,12 +81,14 @@ class Configuration():
         'conf': conffile,
         'nbnode': None,
         'interface': None,
+        'container': None,
         }
 
     find_interface = util.get_network_interface()
     interface = find_interface[0]
     nodename = "slenode"
     nbnode = 3
+    container = ""
     authoritative = "off"
     on_off_options = ['on', 'off']
 
@@ -103,8 +105,6 @@ class Configuration():
     tftp_config_file = "/etc/sysconfig/tftp"
     dhcpd_config_file = '/etc/dhcpd.conf'
     dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
-
-    conffile_name = 'autoww4.yaml'
 
     def __init__(self):
         """
@@ -168,3 +168,7 @@ class Configuration():
         authoritative = self.dataprompt.get('authoritative')
         if authoritative != None:
             self.authoritative = authoritative
+
+        container = self.dataprompt.get('container')
+        if container != None:
+            self.container = container
