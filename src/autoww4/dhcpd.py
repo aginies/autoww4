@@ -31,12 +31,12 @@ class Dhcpd():
         init some stuff
         """
 
-    def dhcpd_interface(self, interface):
+    def dhcpd_interface(self):
         """
         change the interface
         """
-        util.print_data("Setting DHCPD_INTERFACE to ", str(interface))
-        util.change_var(self.dhcpd_sysconfig_file, "DHCPD_INTERFACE", str(interface))
+        util.print_data("Setting DHCPD_INTERFACE to ", str(self.interface))
+        util.change_var(self.dhcpd_sysconfig_file, "DHCPD_INTERFACE", str(self.interface))
 
     def set_authoritative(self, value):
         """

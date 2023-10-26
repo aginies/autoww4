@@ -112,7 +112,8 @@ class Interactive(Cmd):
             config = {'interface': args,}
             self.conf.dataprompt.update({'interface': config['interface']})
             self.update_prompt()
-            dhcpd.Dhcpd.dhcpd_interface(self.conf, args)
+            self.interface = args
+            dhcpd.Dhcpd.dhcpd_interface(self.conf)
 
     def complete_interface(self, text, _line, _begidx, _endidx):
         """

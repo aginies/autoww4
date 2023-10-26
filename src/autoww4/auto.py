@@ -43,7 +43,7 @@ class Automatic():
         #pp.pprint(dir(self))
         util.backup_file(self.dhcpd_config_file)
         # dhcp part
-        dhcpd.Dhcpd.dhcpd_interface(self, self.interface)
+        dhcpd.Dhcpd.dhcpd_interface(self)
         dhcpd.Dhcpd.set_authoritative(self, self.authoritative)
         # tftp
         tftp.tftp_enable()
@@ -51,19 +51,19 @@ class Automatic():
         # dnsmasq
         util.backup_file(self.dnsmasq_config_file)
         dnsmasq.enable_dnsmasq()
-        dnsmasq.Dnsmasq.dnsmasq_config(self, self.dnsmasq_config_file, self.interface)
-        dnsmasq.Dnsmasq.dnsmasq_resolv_conf(self, self.dnsmasq_resolv)
+        dnsmasq.Dnsmasq.dnsmasq_config(self)
+        dnsmasq.Dnsmasq.dnsmasq_resolv_conf(self)
         dnsmasq.restart_dnsmasq()
         # ww4
         util.backup_file(self.ww4_config_file)
-        ww4.Ww4.ww4_warewulf_conf(self, self.ww4_config_file)
+        ww4.Ww4.ww4_warewulf_conf(self)
         util.backup_file(self.ww4_nodes_file)
-        ww4.Ww4.ww4_nodes_conf(self, self.ww4_nodes_file)
+        ww4.Ww4.ww4_nodes_conf(self)
         ww4.ww4_enable()
         ww4.ww4_restart()
         ww4.Ww4.create_nodes_list(self)
         # check dnsmask after adding node in ww4 config
         dnsmasq.Dnsmasq.dnsmasq_test(self)
-        ww4.Ww4.import_container(self, "opensuse", "leap-15.4")
-        ww4.Ww4.prepare_container(self, "leap-15.4")
-        ww4.Ww4.container_set_default(self, "leap-15.4", self.nodename+"[1-"+str(self.nbnode)+"]")
+        ww4.Ww4.import_container(self, "opensuse")
+        ww4.Ww4.prepare_container(self)
+        ww4.Ww4.container_set_default(self, self.nodename+"[1-"+str(self.nbnode)+"]")

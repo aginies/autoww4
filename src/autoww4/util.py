@@ -27,6 +27,7 @@ import fcntl
 import struct
 import yaml
 import psutil
+import socket
 import autoww4.containers as containers
 
 def run_command(cmd):
@@ -87,6 +88,13 @@ def get_network_interface():
     for interface_name, _ in interfaces.items():
         interface_list.append(interface_name)
     return interface_list
+
+def get_hostname():
+    """
+    get hostname of current server
+    """
+    hostname = socket.gethostname()
+    return hostname
 
 def list_containers_registry(familly):
     """

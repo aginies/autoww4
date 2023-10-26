@@ -91,6 +91,7 @@ class Configuration():
     container = ""
     authoritative = "off"
     on_off_options = ['on', 'off']
+    hostname = util.get_hostname()
 
     dnsmasq_config_file = "/etc/dnsmasq.conf"
     dnsmasq_hosts = "/etc/dnsmasq-hosts.conf"
@@ -105,6 +106,8 @@ class Configuration():
     tftp_config_file = "/etc/sysconfig/tftp"
     dhcpd_config_file = '/etc/dhcpd.conf'
     dhcpd_sysconfig_file = "/etc/sysconfig/dhcpd"
+
+    slurm_config_file = "/etc/slurm/slurm.conf"
 
     def __init__(self):
         """

@@ -48,36 +48,36 @@ class Ww4():
     manage warewulf 4
     """
 
-    def import_container(self, familly, product):
+    def import_container(self, familly):
         """
         import a container
         """
-        util.print_info(f"Importing container: {familly} {product}")
+        util.print_info(f"Importing container: {familly} {self.container}")
         list_containers = Ww4.containers_available(self)
         for test in list_containers:
-            if test == product:
-                util.print_error(f"{familly} {product} already imported")
+            if test == self.container:
+                util.print_error(f"{familly} {self.container} already imported")
             else:
                 if familly == "opensuse":
                     for plist in containers.OPENSUSE_LIST:
-                        if plist == product:
-                            container = containers.OPENSUSE_BASE_URL+plist+"/containers/kernel:latest"
-                            cmd = self.wwctl+" container import "+container+" "+product
+                        if plist == self.container:
+                            container_url = containers.OPENSUSE_BASE_URL+plist+"/containers/kernel:latest"
+                            cmd = self.wwctl+" container import "+container_url+" "+self.container
                             util.print_command(cmd)
                             util.run_command_with_except(cmd)
 
-    def ww4_nodes_conf(self, config):
+    def ww4_nodes_conf(self):
         """
         nodes.conf parameter for ww4
         """
-        util.print_info(f"validating ww4 {config}")
-        util.validate_yaml_file(config)
+        util.print_info(f"validating ww4 {self.ww4_nodes_file}")
+        util.validate_yaml_file(self.ww4_nodes_file)
 
-    def ww4_warewulf_conf(self, config):
+    def ww4_warewulf_conf(self):
         """
         warewulf config
         """
-        util.print_info(f"{config}")
+        util.print_info(f"{self.ww4_config_file}")
 
     def add_node(self, node, ipaddr):
         """
@@ -135,21 +135,21 @@ class Ww4():
         except subprocess.CalledProcessError as err:
             print(f"Error: {err.returncode}\n{err.output}")
 
-    def prepare_container(self, container):
+    def prepare_container(self):
         """
         ssh root key from host
         munge key from host
         node list
         slurm configuration
         """
-        util.print_info(f"Working on {container}")
+        util.print_info(f"Working on {self.container}")
 
-    def container_set_default(self, container, node):
+    def container_set_default(self, node):
         """
         set the default container to use
         """
-        util.print_info(f"{node} set container to {container}")
-        util.run_command_with_except(self.wwctl+" node set --container "+container+" "+node)
+        util.print_info(f"{node} set container to {self.container}")
+        util.run_command_with_except(self.wwctl+" node set --container "+self.container+" "+node)
 
     def create_nodes_list(self):
         """
