@@ -1,0 +1,4 @@
+rm /etc/dhcpd.conf.2023*
+rm /etc/warewulf/nodes.conf.2023*
+rm /etc/warewulf/warewulf.conf.2023*
+rm /etc/dnsmasq.conf.2023*
