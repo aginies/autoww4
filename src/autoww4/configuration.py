@@ -84,8 +84,7 @@ class Configuration():
         'container': None,
         }
 
-    find_interface = util.get_network_interface()
-    interface = find_interface[0]
+    interface = str(util.select_an_interface())
     nodename = "slenode"
     nbnode = 3
     container = ""
