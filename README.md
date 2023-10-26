@@ -15,41 +15,89 @@ Prepare everything to be able to deploy Compute nodes with ww4.
     * get container
     * prepare container (ssh key, munge key, slurm, etc...)
 * **firewalld**: permit dns and dhcp request
+* **slurm**: get it ready for the current conf
 
 # User Settings
 
-NOT YET USED 
+User can set some parameter in the **autoww4.yaml** file.
 
 Example:
 ```yaml
-# WARNING: INCORRET PARAMATERS WILL LEAD TO BAD VM CONFIGURATION
+# WARNING: INCORRET PARAMATERS WILL LEAD TO BAD SYSTEM CONFIGURATION
 # Dont change the section name
-```
+ww4:
+  - wwctl: "/usr/bin/wwctl"
+  - ww4_config_file: "/etc/warewulf/warewulf.conf"
+  - ww4_nodes_file: "/etc/warewulf/nodes.conf"
+
+general:
+  #  - interface: "eth0"
+  - nodename: "slenode"
+  - nbnode: 3
+
+dnsmasq:
+  - dnsmasq_config_file: "/etc/dnsmasq.conf"
+  - dnsmasq_hosts: "/etc/dnsmasq.d/dnsmasq-hosts.conf"
+  - dnsmasq_resolv: "/etc/dnsmasq.d/dnsmasq-resolv.conf"
+  - dnsmasq: "/usr/sbin/dnsmasq"
+  - dnsmasq_domain: "sle.lan"
+
+tftp:
+  - tftp_config_file: "/etc/sysconfig/tftp"
+
+dhcpd:
+  - dhcpd_sysconfig_file: "/etc/sysconfig/dhcpd"
+  - dhcpd_config_file: '/etc/dhcpd.conf'
+  - authoritative: 'off'
+ ```
 
 # Usage
 
 config are stored in [configuration.py](src/autoww4/configuration.py) for now,
 will be in [autoww4.yaml](src/autoww4.yaml) in the futur
 ```
-git clone https://github.com/aginies/autoww4
-cd autoww4/src
-python3 -m autoww4
-auto
+# git clone https://github.com/aginies/autoww4
+# cd autoww4/src
+# python3 -m autoww4
+ Version: 0.1.0
+
+ autoww4 Interactive Terminal
+
+ Available parameters:
+ conf: configuration file to use
+ interface: interface to use for dhcpd
+ authoritative: Set DHCPD server as authoritative or not
+ nbnode: how many nodes to prepare
+ nodename: node name (alphanumeric)
+ dnsmasq_domain: domain name for dnsmasq
+
+ Container parameters:
+ list_containers_registry: list containers registry available
+ available_containers: containers already available on the system
+ container: container to use for deployment
+
+---------- User Settings ----------
+Node Name: slenode
+Number Node(s): 3
+dnsmasq domain: sle.lan
+Main Configuration: ./autoww4.yaml
 ```
 
 # Functions
 
 [auto.py](src/autoww4/auto.py)
 ```
-    def __init__():
+class Automatic():
+    def __init__(self):
     def do_all(self):
 ```
 [cmd.py](src/autoww4/cmd.py)
 ```
+class Interactive(Cmd):
     def __init__(self, config):
     def update_prompt(self):
     def do_interface(self, args):
-    def complete_do_interface(self, text, _line, _begidx, _endidx):
+    def complete_interface(self, text, _line, _begidx, _endidx):
     def do_authoritative(self, args):
     def do_nodemane(self, args):
     def do_dnsmasq_domain(self, args):
@@ -58,6 +106,8 @@ auto
     def do_list_containers_registry(self, args):
     def complete_list_containers_registry(self, text, _line, _begidx, _endidx):
     def do_available_containers(self, _args):
+    def do_container(self, args):
+    def complete_container(self, text, _line, _begidx, _endidx):
     def do_test(self, _args):
     def do_auto(self, _):
     def do_quit(self, _):
@@ -67,13 +117,14 @@ auto
 def find_file_dir(name, what):
 def check_conffile(conf):
 def find_conffile():
+class Configuration():
     def __init__(self):
     def basic_config(self):
     def check_user_settings(self):
 ```
-
 [dhcpd.py](src/autoww4/dhcpd.py)
 ```
+class Dhcpd():
     def __init__(self):
     def dhcpd_interface(self, interface):
     def set_authoritative(self, value):
@@ -83,6 +134,7 @@ def find_conffile():
 def restart_dnsmasq():
 def start_dnsmasq():
 def enable_dnsmasq():
+class Dnsmasq():
     def dnsmasq_config(self, config, interface):
     def d_add_node(self, node, ipaddr):
     def dnsmasq_resolv_conf(self, config):
@@ -100,6 +152,7 @@ def main():
 ```
 [tftp.py](src/autoww4/tftp.py)
 ```
+class Tftp():
     def tftp_directory(self, directory):
     def tftp_option(self, options):
 def tftp_enable():
@@ -140,6 +193,7 @@ def create_if_not_exist(afile):
 def ww4_start():
 def ww4_restart():
 def ww4_enable():
+class Ww4():
     def import_container(self, familly, product):
     def ww4_nodes_conf(self, config):
     def ww4_warewulf_conf(self, config):

@@ -1,5 +1,5 @@
-# WARNING: INCORRET PARAMATERS WILL LEAD TO BAD VM CONFIGURATION
-
+# WARNING: INCORRET PARAMATERS WILL LEAD TO BAD SYSTEM CONFIGURATION
+# Dont change the section name
 ww4:
   - wwctl: "/usr/bin/wwctl"
   - ww4_config_file: "/etc/warewulf/warewulf.conf"
@@ -23,4 +23,4 @@ tftp:
 dhcpd:
   - dhcpd_sysconfig_file: "/etc/sysconfig/dhcpd"
   - dhcpd_config_file: '/etc/dhcpd.conf'
-  - authoritative: 'no'
+  - authoritative: 'off'

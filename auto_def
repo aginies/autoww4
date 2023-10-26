@@ -3,7 +3,7 @@ cd src/autoww4
 for f in `ls *.py` 
 	do echo "[$f](src/autoww4/$f)"
 	echo "\`\`\`"
-	grep -E '(def\s)' $f
+	grep -E '(def\s|^class)' $f
 	echo "\`\`\`"
 done
 cd ../..
