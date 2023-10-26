@@ -129,7 +129,7 @@ class Ww4():
                     print(name)
             else:
                 container_list = ["EMPTY"]
-                util.print_warning("No containers available")
+                util.print_warning("No containers currently available on this system")
             return container_list
 
         except subprocess.CalledProcessError as err:
