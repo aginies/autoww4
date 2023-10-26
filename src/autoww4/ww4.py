@@ -149,7 +149,7 @@ class Ww4():
         set the default container to use
         """
         util.print_info(f"{node} set container to {self.container}")
-        util.run_command_with_except(self.wwctl+" node set --container "+self.container+" "+node)
+        util.run_command_live(self.wwctl+" node set --container "+self.container+" "+node)
 
     def create_nodes_list(self):
         """
