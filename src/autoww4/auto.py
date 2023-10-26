@@ -14,7 +14,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-auto
+auto mode
 """
 
 import autoww4.dhcpd as dhcpd
@@ -22,6 +22,7 @@ import autoww4.tftp as tftp
 import autoww4.dnsmasq as dnsmasq
 import autoww4.ww4 as ww4
 import autoww4.util as util
+import autoww4.configuration as configuration
 
 class Automatic():
     """
@@ -37,10 +38,14 @@ class Automatic():
         """
         do everything automatically
         """
-        # dhcp part
+        configuration.Configuration.check_user_settings(self)
+        #import pprint as pp
+        #pp.pprint(dir(self))
         util.backup_file(self.dhcpd_config_file)
-        dhcpd.Dhcpd.dhcpd_interface(self, "eth1")
-        dhcpd.Dhcpd.set_authoritative(self, "no")
+        # dhcp part
+        dhcpd.Dhcpd.dhcpd_interface(self, self.interface)
+        print(self.authoritative)
+        dhcpd.Dhcpd.set_authoritative(self, self.authoritative)
         # tftp
         tftp.tftp_enable()
         tftp.tftp_restart()
@@ -58,6 +63,7 @@ class Automatic():
         ww4.ww4_enable()
         ww4.ww4_restart()
         ww4.Ww4.create_nodes_list(self)
+        # check dnsmask after adding node in ww4 config
         dnsmasq.Dnsmasq.dnsmasq_test(self)
         ww4.Ww4.import_container(self, "opensuse", "leap-15.4")
         ww4.Ww4.prepare_container(self, "leap-15.4")

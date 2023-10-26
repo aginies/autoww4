@@ -41,34 +41,52 @@ auto
 
 [auto.py](src/autoww4/auto.py)
 ```
-def doall():
+    def __init__():
+    def do_all(self):
 ```
 [cmd.py](src/autoww4/cmd.py)
 ```
+    def __init__(self, config):
+    def update_prompt(self):
+    def do_interface(self, args):
+    def complete_do_interface(self, text, _line, _begidx, _endidx):
+    def do_authoritative(self, args):
+    def do_nodemane(self, args):
+    def do_dnsmasq_domain(self, args):
+    def do_conf(self, args):
+    def do_nbnode(self, args):
+    def do_list_containers_registry(self, args):
+    def complete_list_containers_registry(self, text, _line, _begidx, _endidx):
+    def do_available_containers(self, _args):
+    def do_test(self, _args):
+    def do_auto(self, _):
+    def do_quit(self, _):
 ```
 [configuration.py](src/autoww4/configuration.py)
 ```
 def find_file_dir(name, what):
 def check_conffile(conf):
 def find_conffile():
+    def __init__(self):
+    def basic_config(self):
+    def check_user_settings(self):
 ```
-[containers.py](src/autoww4/containers.py)
-```
-```
+
 [dhcpd.py](src/autoww4/dhcpd.py)
 ```
-def dhcpd_interface(interface):
-def set_authoritative(value):
+    def __init__(self):
+    def dhcpd_interface(self, interface):
+    def set_authoritative(self, value):
 ```
 [dnsmasq.py](src/autoww4/dnsmasq.py)
 ```
 def restart_dnsmasq():
 def start_dnsmasq():
 def enable_dnsmasq():
-def dnsmasq_config(config, interface):
-def add_node(node, ipaddr):
-def dnsmasq_resolv_conf(config):
-def dnsmasq_test():
+    def dnsmasq_config(self, config, interface):
+    def d_add_node(self, node, ipaddr):
+    def dnsmasq_resolv_conf(self, config):
+    def dnsmasq_test(self):
 ```
 [__init__.py](src/autoww4/__init__.py)
 ```
@@ -82,8 +100,8 @@ def main():
 ```
 [tftp.py](src/autoww4/tftp.py)
 ```
-def tftp_directory(directory):
-def tftp_option(options):
+    def tftp_directory(self, directory):
+    def tftp_option(self, options):
 def tftp_enable():
 def tftp_start():
 def tftp_restart():
@@ -115,22 +133,22 @@ def check_iam_root():
 def find_ext_file(ext):
 def extract_subnet_range(config):
 def get_ip_address(interface):
-def create_if_not_exist(file):
+def create_if_not_exist(afile):
 ```
 [ww4.py](src/autoww4/ww4.py)
 ```
 def ww4_start():
 def ww4_restart():
 def ww4_enable():
-def import_container(familly, product):
-def ww4_nodes_conf(config):
-def ww4_warewulf_conf(config):
-def add_node(node, ipaddr):
-def get_nodes_list():
-def containers_available():
-def prepare_container(container):
-def container_set_default(container, node):
-def create_nodes_list():
+    def import_container(self, familly, product):
+    def ww4_nodes_conf(self, config):
+    def ww4_warewulf_conf(self, config):
+    def add_node(self, node, ipaddr):
+    def get_nodes_list(self):
+    def containers_available(self):
+    def prepare_container(self, container):
+    def container_set_default(self, container, node):
+    def create_nodes_list(self):
 ```
 
 [containers.py](src/autoww4/containers.py)

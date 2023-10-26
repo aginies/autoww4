@@ -36,7 +36,6 @@ def run_command(cmd):
     proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     proc.wait()
     out, errs = proc.communicate(timeout=5)
-    #out = str(out, 'UTF-8')
     out = out.decode('utf-8')
     return out, errs
 
@@ -45,11 +44,11 @@ def run_command_with_except(cmd):
     run command with except
     """
     try:
-        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True)
+        result = subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True, check=True, encoding='utf8', universal_newlines=True)
         stdout = result.stdout
         stderr = result.stderr
         return stdout, stderr
-        print("\n")
+
     except subprocess.CalledProcessError as err:
         print(f"Command:\n'{cmd}'\n failed with exit code {err.returncode}:")
         print(err.stderr)
@@ -296,7 +295,7 @@ def extract_subnet_range(config):
 
 def get_ip_address(interface):
     """
-    get the i paddress of an interface
+    get the ipaddress of an interface
     """
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

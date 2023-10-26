@@ -26,8 +26,8 @@ import autoww4.dhcpd as dhcpd
 import autoww4.containers as containers
 import autoww4.ww4 as ww4
 import autoww4.auto as auto
+#import pprint as pp
 
-import pprint as pp
 ######
 # Interactive command
 # ####
@@ -62,8 +62,6 @@ class Interactive(Cmd):
         lines.append(util.esc('blue')+" list_containers_registry"+util.esc('reset')+": list containers registry available\n")
         lines.append(util.esc('blue')+" available_containers"+util.esc('reset')+": containers already available on the system\n")
 
-        #pp.pprint(dir(self.conf))
-        #pp.pprint((self.conf.dataprompt))
         #self.conf.dataprompt.update({'nodename': self.conf.dataprompt['nodename']})
 
         line1 = ""
@@ -132,9 +130,9 @@ class Interactive(Cmd):
             util.print_error("Available options are: on / off")
         else:
             if args == "on":
-                dhcpd.Dhcpd.set_authoritative(self.conf, "yes")
+                dhcpd.Dhcpd.set_authoritative(self.conf, "on")
             else:
-                dhcpd.Dhcpd.set_authoritative(self.conf, "no")
+                dhcpd.Dhcpd.set_authoritative(self.conf, "off")
 
     def do_nodemane(self, args):
         """
