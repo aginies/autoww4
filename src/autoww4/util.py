@@ -261,7 +261,7 @@ def backup_file(file):
     timestamp = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
     bck_file = f"{file}.{timestamp}.bck"
     try:
-        shutil.copy(file, backup_file)
+        shutil.copy(file, bck_file)
         print_info(f"Backup {file} to {bck_file}")
     except FileNotFoundError:
         print(f"Error: {file} not found")
