@@ -54,6 +54,27 @@ def run_command_with_except(cmd):
         print(f"Command:\n'{cmd}'\n failed with exit code {err.returncode}:")
         print(err.stderr)
 
+def run_command_live(cmd):
+    """
+    run a live command
+    """
+    process = subprocess.Popen(
+        cmd,
+        shell=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+        universal_newlines=True
+    )
+
+    # Read and print the output line by line
+    for line in process.stdout:
+        print(line, end='')
+    process.wait()
+    if process.returncode == 0:
+        pass
+    else:
+        print(f"Command {cmd} failed with return code {process.returncode}")
+
 def systemd_start(service):
     """
     Start the service
@@ -88,6 +109,14 @@ def get_network_interface():
     for interface_name, _ in interfaces.items():
         interface_list.append(interface_name)
     return interface_list
+
+def select_an_interface():
+    """
+    select a default interface
+    """
+    interface_list = get_network_interface()
+    selected_index = next((index for index, iface in enumerate(interface_list) if iface.startswith('eth') or 'ensp' in iface), None)
+    return interface_list[selected_index]
 
 def get_hostname():
     """
