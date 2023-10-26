@@ -49,8 +49,9 @@ class Interactive(Cmd):
         self.prompt = self.promptline +'> '
         self.prompt = 'autoww4 > '
         lines = []
-        lines.append("\n"+util.esc('green') +" autoww4 "+util.esc('reset'))
+        lines.append(util.esc('green') +" autoww4 "+util.esc('reset'))
         lines.append("Interactive Terminal\n")
+        lines.append(" Configure dhcpd, dnmasq, slurm, tftp and ww4 based on user settings (or automatic) \n")
         lines.append("\n Available parameters:\n")
         lines.append(util.esc('blue')+" conf"+util.esc('reset')+": configuration file to use\n")
         lines.append(util.esc('blue')+" interface"+util.esc('reset')+": interface to use for dhcpd\n")
@@ -62,6 +63,9 @@ class Interactive(Cmd):
         lines.append(util.esc('blue')+" list_containers_registry"+util.esc('reset')+": list containers registry available\n")
         lines.append(util.esc('blue')+" available_containers"+util.esc('reset')+": containers already available on the system\n")
         lines.append(util.esc('blue')+" container"+util.esc('reset')+": container to use for deployment\n")
+        lines.append("\n Source code: https://github.com/aginies/autoww4\n")
+        lines.append(" Report bug: https://github.com/aginies/autoww4/issues\n")
+
 
         #self.conf.dataprompt.update({'nodename': self.conf.dataprompt['nodename']})
 
@@ -72,8 +76,10 @@ class Interactive(Cmd):
         self.intro = ''.join(lines)
         self.prompt = self.promptline+line1+'\n'+'> '
         # fill data with default value
-        self.update_prompt()
         self.list_interface = util.get_network_interface()
+        # auto select an interface
+        self.conf.dataprompt.update({'interface': self.conf.interface})
+        self.update_prompt()
 
     def update_prompt(self):
         """
@@ -246,7 +252,11 @@ class Interactive(Cmd):
         """
         Do all the stuff automatically
         """
-        auto.Automatic.do_all(self.conf)
+        # check the user a set a container to use
+        if self.conf.dataprompt.get('container') is None:
+            util.print_error("Please select a container to use: 'container'")
+        else:
+            auto.Automatic.do_all(self.conf)
 
     def do_quit(self, _):
         """
