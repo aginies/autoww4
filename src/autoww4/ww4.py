@@ -64,7 +64,7 @@ class Ww4():
                             container_url = containers.OPENSUSE_BASE_URL+plist+"/containers/kernel:latest"
                             cmd = self.wwctl+" container import "+container_url+" "+self.container
                             util.print_command(cmd)
-                            util.run_command_with_except(cmd)
+                            util.run_command_live(cmd)
 
     def ww4_nodes_conf(self):
         """
@@ -124,7 +124,7 @@ class Ww4():
             container_names = [line.split()[0] for line in lines if line.strip() and line.split()]
             container_list = container_names[1:]
             if container_list:
-                util.print_info(f"Container(s) imported:")
+                util.print_info(f"Container(s) already imported:")
                 for name in container_list:
                     print(name)
             else:
@@ -164,7 +164,7 @@ class Ww4():
             parts_range_ip = range_i[0].split(".")[:3]
             range_ip = ".".join(parts_range_ip)
             last_number_ip = range_i[0].split(".")[-1]
-            while number <= self.nbnode:
+            while number <= int(self.nbnode):
                 lastip = int(last_number_ip)+number
                 ipaddr = range_ip+"."+str(lastip)
                 nname = self.nodename+str(number)
